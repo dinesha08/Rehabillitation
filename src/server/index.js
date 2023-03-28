@@ -1,29 +1,22 @@
-// Import dependencies
-const express = require("express");
-const app = express();
+const http = require("http");
+
 const { SerialPort } = require("serialport");
 const { ReadlineParser } = require("@serialport/parser-readline");
 
 // Defining the serial port
-const port = new SerialPort({
+const ports = new SerialPort({
   path: "COM6",
   baudRate: 9600,
 });
 
-// The Serial port parser
+// The Serial ports parser
 const parser = new ReadlineParser();
-port.pipe(parser);
+ports.pipe(parser);
 
 // Read the data from the serial port
 
 let data = [];
 parser.on("data", (line) => data.push(line));
-
-app.get("/data", (req, res) => {
-  res.send(data);
-});
-
-const http = require("http");
 
 const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -38,7 +31,6 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/data") {
-    const data = { message: "Hello, React!" };
     res.write(JSON.stringify(data));
     res.end();
   } else {
