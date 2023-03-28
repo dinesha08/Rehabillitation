@@ -6,26 +6,25 @@ import "./dashboardStyle.scss";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
-  const [accelertaion, setAcceleration] = useState([]);
+  const [accelerataion, setAcceleration] = useState([]);
   const [brake, setBrake] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/data")
       .then((response) => {
-        setData(response.data);
-        splitData(data);
+        setData(response.data)
+        data.forEach((item) => {
+          setAcceleration(item.split(",")[0]);
+          const remove = item.split(",")[1]
+          setBrake(remove.replace("\r",""))
+        })
+        console.log({Acceleration: accelerataion, Brake: brake})
       })
       .catch((error) => {
         console.log(error);
       });
   }, [data]);
-
-  const splitData = (data) => {
-    const [acceleration, brake] = data.map((item) => item.split(","));
-    console.log(acceleration, brake);
-    return acceleration;
-  };
 
   return (
     <Container fluid className="dashboard">

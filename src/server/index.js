@@ -16,7 +16,14 @@ ports.pipe(parser);
 // Read the data from the serial port
 
 let data = [];
-parser.on("data", (line) => data.push(line));
+parser.on("data", (line) => {
+  if(data.length >= 10) {
+    data.splice(0,1);
+    data.push(line);
+  } else {
+    data.push(line);
+  }
+});
 
 const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "application/json");
