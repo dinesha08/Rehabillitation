@@ -1,4 +1,6 @@
 // Import dependencies
+const express = require("express");
+const app = express();
 const { SerialPort } = require("serialport");
 const { ReadlineParser } = require("@serialport/parser-readline");
 
@@ -13,8 +15,14 @@ const parser = new ReadlineParser();
 port.pipe(parser);
 
 // Read the data from the serial port
-parser.on("data", (line) => console.log(line));
 
-// Write the data to the serial port
-port.write("ROBOT POWER ON");
-port.write("ROBOT POWER ON");
+let data = [];
+parser.on("data", (line) => data.push(line));
+
+app.get("/data", (req, res) => {
+  res.json(data);
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
