@@ -1,35 +1,37 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "reactstrap";
-
+import { Col, Container, Row } from "reactstrap";
 
 import "./dashboardStyle.scss";
 
 const Dashboard = () => {
-  const [port, setPort] = useState(null);
-
-  const handleClick = () => {
-    navigator.serial.requestPort().then((serialPort) => {
-      setPort(serialPort)
-    });
-  }
+  const [data, setData] = useState([]);
+  const [accelerataion, setAcceleration] = useState([]);
+  const [brake, setBrake] = useState([]);
 
   useEffect(() => {
-    if (port) {
-      // Open the serial port and start reading data
-      port.open({ baudRate: 9600 }).then(() => {
-        const reader = port.readable.getReader();
-        reader.read().then(function processResult(result) {
-          console.log(result); 
-        });
+    axios
+      .get("http://localhost:5000/data")
+      .then((response) => {
+        setData(response.data)
+        data.forEach((item) => {
+          setAcceleration(item.split(",")[0]);
+          const remove = item.split(",")[1]
+          setBrake(remove.replace("\r",""))
+        })
+        console.log({Acceleration: accelerataion, Brake: brake})
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    }
-  }, [port]);
+  }, [data]);
 
   return (
-    <Container fluid className="dashboard p-0">
+    <Container fluid className="dashboard">
       <Row>
-        <Col>Test</Col>
-        <Button onClick={()=> handleClick()}>Click</Button>
+        <Col className="d-flex justify-content-center align-items-center">
+          <h1 className="title">Rehabilitation</h1>
+        </Col>
       </Row>
     </Container>
   );
