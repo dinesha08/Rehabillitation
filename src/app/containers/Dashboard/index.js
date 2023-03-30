@@ -48,11 +48,6 @@ const Dashboard = () => {
           {patientDetails ? (
             <>
               <Row>
-                <Col className="text-center">
-                  <h2 className="title">Enter Patient Details</h2>
-                </Col>
-              </Row>
-              <Row>
                 <Col className="mx-5">
                   <PatientDetailsInput
                     setPatientDetails={setPatientDetails}

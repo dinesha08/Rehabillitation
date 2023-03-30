@@ -9,6 +9,11 @@ const HealthDetailsInput = ({
   return (
     <>
       <Row>
+        <Col className="text-center">
+          <h2 className="title">Enter Health Details</h2>
+        </Col>
+      </Row>
+      <Row>
         <Col xs="6">
           <Label className="label">Height</Label>
           <Input

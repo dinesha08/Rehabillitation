@@ -1,17 +1,12 @@
-import React, { useState } from "react";
-import ReactDatePicker from "react-datepicker";
+import React from "react";
 import { Col, Input, Label, Row } from "reactstrap";
 
-import "react-datepicker/dist/react-datepicker.css";
-
-const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
-  const [startDate, setStartDate] = useState(new Date());
-
+const KinDetailsInput = ({ setKinDetails, setHealthDetails }) => {
   return (
     <>
       <Row>
         <Col className="text-center">
-          <h2 className="title">Enter Patient Details</h2>
+          <h2 className="title">Enter Kin Details</h2>
         </Col>
       </Row>
       <Row>
@@ -36,6 +31,15 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
       </Row>
       <Row>
         <Col xs="6">
+          <Label className="label">Relationship Type</Label>
+          <Input
+            label="Relationship Type"
+            name="relationshipType"
+            placeholder="Relationship Type"
+            className="input"
+          />
+        </Col>
+        <Col xs="6">
           <Label className="label">Gender</Label>
           <Input
             label="Gender"
@@ -44,28 +48,11 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
             className="input"
           />
         </Col>
-        <Col xs="6">
-          <Label className="label">Age</Label>
-          <Input label="Age" name="age" placeholder="Age" className="input" />
-        </Col>
       </Row>
       <Row>
         <Col xs="6">
-          <Label className="label">Date of Birth</Label>
-          <ReactDatePicker
-            showIcon
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            className="datePicker"
-            dateFormat={"dd-MM-yyyy"}
-          />
-          {/* <Input
-            label="Date of Birth"
-            name="dob"
-            placeholder="Date of Birth"
-            className="input"
-            type="date"
-          /> */}
+          <Label className="label">Age</Label>
+          <Input label="Age" name="age" placeholder="Age" className="input" />
         </Col>
         <Col xs="6">
           <Label className="label">Address</Label>
@@ -100,8 +87,8 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
       <div className="d-flex flex-row-reverse">
         <button
           onClick={() => {
-            setPersonalDetails(false);
-            setKinDetails(true);
+            setKinDetails(false);
+            setHealthDetails(true);
           }}
           className="cssbuttons-io-button mt-3 mb-3 mx-2"
         >
@@ -126,4 +113,4 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
   );
 };
 
-export default PersonalDetailsInput;
+export default KinDetailsInput;
