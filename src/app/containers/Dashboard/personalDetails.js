@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import ReactDatePicker from "react-datepicker";
 import { Col, Input, Label, Row } from "reactstrap";
 
-import "react-datepicker/dist/react-datepicker.css";
-
 const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
-  const [startDate, setStartDate] = useState(new Date());
-
   return (
     <>
       <Row>
@@ -52,20 +47,6 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
       <Row>
         <Col xs="6">
           <Label className="label">Date of Birth</Label>
-          <ReactDatePicker
-            showIcon
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            className="datePicker"
-            dateFormat={"dd-MM-yyyy"}
-          />
-          {/* <Input
-            label="Date of Birth"
-            name="dob"
-            placeholder="Date of Birth"
-            className="input"
-            type="date"
-          /> */}
         </Col>
         <Col xs="6">
           <Label className="label">Address</Label>
