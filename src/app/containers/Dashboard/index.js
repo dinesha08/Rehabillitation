@@ -6,14 +6,16 @@ import PatientDetailsInput from "./patientDetailsInput";
 import "./dashboardStyle.scss";
 import Loader from "../../components/Loader";
 import MainScreen from "./mainScreen";
+import MedicalRecords from "./medicalRecords";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [accelerataion, setAcceleration] = useState([]);
   const [brake, setBrake] = useState([]);
-  const [patientDetail, setPatientDetail] = useState(true);
+  const [patientDetail, setPatientDetail] = useState(false);
   const [loader, setLoader] = useState(false);
   const [blankScreen, setBlankScreen] = useState(false);
+  const [input, setInput] = useState(false);
 
   useEffect(() => {
     axios
@@ -48,25 +50,38 @@ const Dashboard = () => {
               <h1 className="title my-4">Lower Limb Rehabilitation</h1>
             </Col>
           </Row>
-
-          {patientDetail ? (
+          {input ? (
             <>
-              <Card className="card mx-5">
-                <CardBody>
-                  <Row>
-                    <Col className="mx-5">
-                      <PatientDetailsInput
-                        setPatientDetail={setPatientDetail}
-                        setLoader={setLoader}
-                        setBlankScreen={setBlankScreen}
-                      />
-                    </Col>
-                  </Row>
-                </CardBody>
-              </Card>
+              {patientDetail ? (
+                <>
+                  <Card className="card mx-5">
+                    <CardBody>
+                      <Row>
+                        <Col className="mx-5">
+                          <PatientDetailsInput
+                            setPatientDetail={setPatientDetail}
+                            setLoader={setLoader}
+                            setBlankScreen={setBlankScreen}
+                            setInput={setInput}
+                          />
+                        </Col>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </>
+              ) : (
+                <MainScreen
+                  accelerataion={accelerataion}
+                  brake={brake}
+                  setInput={setInput}
+                />
+              )}
             </>
           ) : (
-            <MainScreen accelerataion={accelerataion} brake={brake} />
+            <MedicalRecords
+              setInput={setInput}
+              setPatientDetail={setPatientDetail}
+            />
           )}
         </>
       )}

@@ -195,3 +195,17 @@
   color: white;
   border: none;
 }
+
+.addMedical,
+.addMedical:focus,
+.addMedical:active,
+.addMedical:hover {
+  width: fit-content;
+  right: 0;
+  margin: 10px;
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+}

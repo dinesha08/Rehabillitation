@@ -158,7 +158,7 @@ const GraphSection = ({ accelerataion, brake }) => {
   };
 
   return (
-    <Card className="card mx-5 mb-5 mt-3">
+    <Card className="card mx-5 mb-2 mt-3">
       <CardBody>
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs="6" className="text-center">

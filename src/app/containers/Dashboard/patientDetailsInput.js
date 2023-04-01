@@ -8,6 +8,7 @@ const PatientDetailsInput = ({
   setPatientDetail,
   setLoader,
   setBlankScreen,
+  setInput,
 }) => {
   const [personalDetails, setPersonalDetails] = useState(true);
   const [kinDetails, setKinDetails] = useState(false);
@@ -24,6 +25,7 @@ const PatientDetailsInput = ({
         <PersonalDetailsInput
           setPersonalDetails={setPersonalDetails}
           setKinDetails={setKinDetails}
+          setInput={setInput}
         />
       )}
       {kinDetails && (

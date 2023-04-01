@@ -14,7 +14,11 @@ import {
 import { fetchPatientDetails } from "./dashboardSlice";
 import moment from "moment/moment";
 
-const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
+const PersonalDetailsInput = ({
+  setPersonalDetails,
+  setKinDetails,
+  setInput,
+}) => {
   const dispatch = useDispatch();
   const { patientDetails } = useSelector(
     (state) => state.rehabilitationDetails
@@ -52,6 +56,16 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
         setKinDetails(true);
       }}
     >
+      <Row>
+        <Col className="d-flex align-items-center">
+          <i
+            className="fa-solid fa-arrow-left fa-xl p-3 ps-0"
+            onClick={() => {
+              setInput(false);
+            }}
+          ></i>
+        </Col>
+      </Row>
       <Row>
         <Col xs="6">
           <Label className="label">First Name</Label>
