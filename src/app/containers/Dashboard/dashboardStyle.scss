@@ -2,6 +2,196 @@
 }
 
 .title {
-  font-weight: 200;
-  font-style: italic;
+  font-weight: 300;
+}
+
+.subTitle {
+  font-weight: 300;
+}
+
+.input,
+.input:focus,
+.input:active,
+.input:hover {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  resize: vertical;
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.075);
+  color: white;
+  border: none;
+}
+
+.dropDownMenu,
+.dropDownMenu:focus,
+.dropDownMenu:active,
+.dropDownMenu:hover {
+  background: #2d2f3e;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.dropMenuItem {
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.dropMenuItem:hover {
+  background: #fff;
+}
+
+.dropMenuItem:active {
+  background: #fff;
+  color: #000;
+}
+
+.dropDownDivider {
+  border-bottom: 1px solid #5f5f5f;
+}
+
+.textArea,
+.textArea:focus,
+.textArea:active,
+.textArea:hover {
+  width: 100%;
+  height: 100px;
+  border-radius: 4px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  resize: vertical;
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.075);
+  color: white;
+  border: none;
+}
+
+.label {
+  padding: 12px 12px 5px 0;
+  display: inline-block;
+}
+
+.card {
+  background: #161e3b;
+  box-shadow: 0 1px 10px 0 rgba(10, 12, 43, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.cssbuttons-io-button {
+  background: rgba(255, 255, 255, 0.075);
+  color: white;
+  font-family: inherit;
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em rgba(255, 255, 255, 0.075);
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+}
+
+.cssbuttons-io-button .icon {
+  background: white;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em rgba(255, 255, 255, 0.075);
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+  width: calc(100% - 0.6em);
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+.cssbuttons-io-button .icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: #090c1d;
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+  transform: translateX(0.1em);
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+.cssbuttons-io-button:active .icon {
+  transform: scale(0.95);
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.profilePic {
+  height: auto;
+  width: 60%;
+  border-radius: 50%;
+}
+
+.key {
+  color: #8f9ac2;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #d6dee1;
+  padding: 10px;
+  box-shadow: 0 1px 10px 0 rgba(13, 14, 17, 0.37);
+  border-radius: 5px;
+}
+
+.inputDropdown,
+.inputDropdown:focus,
+.inputDropdown:active,
+.inputDropdown:hover {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  resize: vertical;
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.075);
+  color: white;
+  border: none;
 }

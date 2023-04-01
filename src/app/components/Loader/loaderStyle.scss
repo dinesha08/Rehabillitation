@@ -1,0 +1,21 @@
+.modal {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .modalContent {
+    background-color: black;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 2.5%;
+    width: 210px;
+    height: 210px;
+
+    .modalBody {
+      padding: 0;
+    }
+  }
+}
+
+.loader {
+  filter: invert(1);
+}
