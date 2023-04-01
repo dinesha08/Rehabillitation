@@ -1,7 +1,21 @@
-import React, { useState } from "react";
-import { Col, Input, Label, Row } from "reactstrap";
+import React from "react";
+import { useState } from "react";
+import {
+  Col,
+  Input,
+  Label,
+  Row,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
 const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
+
   return (
     <>
       <Row>
@@ -12,57 +26,65 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
       <Row>
         <Col xs="6">
           <Label className="label">First Name</Label>
-          <Input
-            label="First Name"
-            name="firstName"
-            placeholder="First Name"
-            className="input"
-          />
+          <Input name="firstName" placeholder="First Name" className="input" />
         </Col>
         <Col xs="6">
           <Label className="label">Last Name</Label>
-          <Input
-            label="Last Name"
-            name="lastName"
-            placeholder="Last Name"
-            className="input"
-          />
+          <Input name="lastName" placeholder="Last Name" className="input" />
         </Col>
       </Row>
       <Row>
         <Col xs="6">
           <Label className="label">Gender</Label>
-          <Input
-            label="Gender"
-            name="gender"
-            placeholder="Gender"
-            className="input"
-          />
+          <Row className="d-flex align-items-center">
+            <Col xs="10">
+              <Input
+                label="Gender"
+                name="gender"
+                placeholder="Gender"
+                className="input"
+              />
+            </Col>
+            <Col className="d-flex justify-content-end">
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle caret className="input" color="none" />
+                <DropdownMenu className="dropDownMenu">
+                  <DropdownItem className="dropMenuItem">Male</DropdownItem>
+                  <DropdownItem divider className="dropDownDivider" />
+                  <DropdownItem className="dropMenuItem">Female</DropdownItem>
+                  <DropdownItem divider className="dropDownDivider" />
+                  <DropdownItem className="dropMenuItem">Others</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </Col>
+          </Row>
         </Col>
         <Col xs="6">
           <Label className="label">Age</Label>
-          <Input label="Age" name="age" placeholder="Age" className="input" />
+          <Input name="age" placeholder="Age" className="input" />
         </Col>
       </Row>
       <Row>
         <Col xs="6">
           <Label className="label">Date of Birth</Label>
+          <Input
+            name="dob"
+            className="input"
+            placeholder="Date of Birth"
+            onFocus={(e) => {
+              e.target.type = "date";
+            }}
+          />
         </Col>
         <Col xs="6">
           <Label className="label">Address</Label>
-          <Input
-            label="Address"
-            name="address"
-            placeholder="Address"
-            className="input"
-          />
+          <Input name="address" placeholder="Address" className="input" />
         </Col>
       </Row>
       <Row>
         <Col xs="6">
           <Label className="label">Mobile Number</Label>
           <Input
-            label="Mobile Number"
             name="mobileNumber"
             placeholder="Mobile Number"
             className="input"
@@ -71,7 +93,6 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
         <Col xs="6">
           <Label className="label">Alternate Mobile Number</Label>
           <Input
-            label="Alternate Mobile Number"
             name="alternateMobileNumber"
             placeholder="Alternate Mobile Number"
             className="input"

@@ -23,6 +23,35 @@
   border: none;
 }
 
+.dropDownMenu,
+.dropDownMenu:focus,
+.dropDownMenu:active,
+.dropDownMenu:hover {
+  background: #2d2f3e;
+  margin-top: 20px;
+}
+
+.dropMenuItem {
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.dropMenuItem:hover {
+  background: #fff;
+}
+
+.dropMenuItem:active {
+  background: #fff;
+  color: #000;
+}
+
+.dropDownDivider {
+  border-bottom: 1px solid #5f5f5f;
+}
+
 .textArea,
 .textArea:focus,
 .textArea:active,
@@ -119,4 +148,8 @@
   box-shadow: none;
   border: none;
   outline: none;
+}
+
+::-webkit-calendar-picker-indicator {
+  display: none;
 }
