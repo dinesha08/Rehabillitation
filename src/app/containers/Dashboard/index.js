@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [brake, setBrake] = useState([]);
   const [patientDetail, setPatientDetail] = useState(true);
   const [loader, setLoader] = useState(false);
+  const [blankScreen, setBlankScreen] = useState(false);
 
   useEffect(() => {
     axios
@@ -34,34 +35,40 @@ const Dashboard = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
+      setBlankScreen(false);
     }, 3000);
   }, [loader, patientDetail]);
 
   return (
     <Container fluid className="dashboard">
-      <Row>
-        <Col className="d-flex justify-content-center align-items-center">
-          <h1 className="title my-4">Rehabilitation</h1>
-        </Col>
-      </Row>
-
-      {patientDetail ? (
+      {!blankScreen && (
         <>
-          <Card className="card mx-5">
-            <CardBody>
-              <Row>
-                <Col className="mx-5">
-                  <PatientDetailsInput
-                    setPatientDetail={setPatientDetail}
-                    setLoader={setLoader}
-                  />
-                </Col>
-              </Row>
-            </CardBody>
-          </Card>
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center">
+              <h1 className="title my-4">Lower Limb Rehabilitation</h1>
+            </Col>
+          </Row>
+
+          {patientDetail ? (
+            <>
+              <Card className="card mx-5">
+                <CardBody>
+                  <Row>
+                    <Col className="mx-5">
+                      <PatientDetailsInput
+                        setPatientDetail={setPatientDetail}
+                        setLoader={setLoader}
+                        setBlankScreen={setBlankScreen}
+                      />
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            </>
+          ) : (
+            <MainScreen accelerataion={accelerataion} brake={brake} />
+          )}
         </>
-      ) : (
-        <MainScreen />
       )}
 
       {loader && <Loader />}

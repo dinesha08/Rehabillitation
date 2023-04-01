@@ -33,6 +33,7 @@
 .dropDownMenu:hover {
   background: #2d2f3e;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .dropMenuItem {
@@ -166,4 +167,31 @@
 
 .key {
   color: #8f9ac2;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #d6dee1;
+  padding: 10px;
+  box-shadow: 0 1px 10px 0 rgba(13, 14, 17, 0.37);
+  border-radius: 5px;
+}
+
+.inputDropdown,
+.inputDropdown:focus,
+.inputDropdown:active,
+.inputDropdown:hover {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  resize: vertical;
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.075);
+  color: white;
+  border: none;
 }

@@ -8,6 +8,7 @@ const HealthDetailsInput = ({
   setPatientDetail,
   setKinDetails,
   setLoader,
+  setBlankScreen,
 }) => {
   const dispatch = useDispatch();
   const { patientDetails } = useSelector(
@@ -34,6 +35,7 @@ const HealthDetailsInput = ({
           setHealthDetails(false);
           setPatientDetail(false);
           setLoader(true);
+          setBlankScreen(true);
         }}
       >
         <Row>

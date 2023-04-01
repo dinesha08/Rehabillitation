@@ -4,7 +4,11 @@ import PersonalDetailsInput from "./personalDetails";
 import HealthDetailsInput from "./healthDetails";
 import KinDetailsInput from "./kinDetails";
 
-const PatientDetailsInput = ({ setPatientDetail, setLoader }) => {
+const PatientDetailsInput = ({
+  setPatientDetail,
+  setLoader,
+  setBlankScreen,
+}) => {
   const [personalDetails, setPersonalDetails] = useState(true);
   const [kinDetails, setKinDetails] = useState(false);
   const [healthDetails, setHealthDetails] = useState(false);
@@ -35,6 +39,7 @@ const PatientDetailsInput = ({ setPatientDetail, setLoader }) => {
           setPatientDetail={setPatientDetail}
           setKinDetails={setKinDetails}
           setLoader={setLoader}
+          setBlankScreen={setBlankScreen}
         />
       )}
     </>

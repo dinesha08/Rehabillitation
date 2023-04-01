@@ -2,11 +2,11 @@ import React from "react";
 import ProfileSection from "./profileSection";
 import GraphSection from "./graphSection";
 
-const MainScreen = () => {
+const MainScreen = ({ accelerataion, brake }) => {
   return (
     <>
       <ProfileSection />
-      <GraphSection />
+      <GraphSection accelerataion={accelerataion} brake={brake} />
     </>
   );
 };
