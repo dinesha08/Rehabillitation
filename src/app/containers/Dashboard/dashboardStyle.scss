@@ -5,6 +5,10 @@
   font-weight: 300;
 }
 
+.subTitle {
+  font-weight: 300;
+}
+
 .input,
 .input:focus,
 .input:active,
@@ -76,7 +80,7 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.075);
+  background: #161e3b;
   box-shadow: 0 1px 10px 0 rgba(10, 12, 43, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -152,4 +156,14 @@
 
 ::-webkit-calendar-picker-indicator {
   display: none;
+}
+
+.profilePic {
+  height: auto;
+  width: 60%;
+  border-radius: 50%;
+}
+
+.key {
+  color: #8f9ac2;
 }

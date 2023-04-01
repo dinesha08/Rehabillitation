@@ -5,12 +5,13 @@ import PatientDetailsInput from "./patientDetailsInput";
 
 import "./dashboardStyle.scss";
 import Loader from "../../components/Loader";
+import MainScreen from "./mainScreen";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [accelerataion, setAcceleration] = useState([]);
   const [brake, setBrake] = useState([]);
-  const [patientDetails, setPatientDetails] = useState(true);
+  const [patientDetail, setPatientDetail] = useState(true);
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
@@ -27,14 +28,14 @@ const Dashboard = () => {
       })
       .catch((error) => {
         console.log(error);
-      });
+      }); // eslint-disable-next-line
   }, [data]);
 
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
     }, 3000);
-  }, [loader, patientDetails]);
+  }, [loader, patientDetail]);
 
   return (
     <Container fluid className="dashboard">
@@ -43,28 +44,26 @@ const Dashboard = () => {
           <h1 className="title my-4">Rehabilitation</h1>
         </Col>
       </Row>
-      <Card className="card mx-5">
-        <CardBody>
-          {patientDetails ? (
-            <>
+
+      {patientDetail ? (
+        <>
+          <Card className="card mx-5">
+            <CardBody>
               <Row>
                 <Col className="mx-5">
                   <PatientDetailsInput
-                    setPatientDetails={setPatientDetails}
+                    setPatientDetail={setPatientDetail}
                     setLoader={setLoader}
                   />
                 </Col>
               </Row>
-            </>
-          ) : (
-            <Row>
-              <Col className="text-center">
-                <h2 className="title">Graph</h2>
-              </Col>
-            </Row>
-          )}
-        </CardBody>
-      </Card>
+            </CardBody>
+          </Card>
+        </>
+      ) : (
+        <MainScreen />
+      )}
+
       {loader && <Loader />}
     </Container>
   );

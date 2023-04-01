@@ -1,28 +1,57 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Col,
   Input,
   Label,
   Row,
+  Form,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { fetchPatientDetails } from "./dashboardSlice";
+import moment from "moment/moment";
 
 const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
+  const dispatch = useDispatch();
+  const { patientDetails } = useSelector(
+    (state) => state.rehabilitationDetails
+  );
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [gender, setGender] = useState();
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
+  const handleGender = (e) => {
+    setGender(e.target.innerText);
+  };
+
   return (
-    <>
-      <Row>
-        <Col className="text-center">
-          <h2 className="title">Enter Patient Details</h2>
-        </Col>
-      </Row>
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault();
+        dispatch(
+          fetchPatientDetails({
+            ...patientDetails,
+            personalDetails: {
+              firstName: e.target.firstName.value,
+              lastName: e.target.lastName.value,
+              gender: gender,
+              age: e.target.age.value,
+              dob: moment(e.target.dob.value).format("DD-MM-YYYY"),
+              address: e.target.address.value,
+              mobileNumber: e.target.mobileNumber.value,
+              alternateMobileNumber: e.target.alternateMobileNumber.value,
+            },
+          })
+        );
+        setPersonalDetails(false);
+        setKinDetails(true);
+      }}
+    >
       <Row>
         <Col xs="6">
           <Label className="label">First Name</Label>
@@ -39,21 +68,28 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
           <Row className="d-flex align-items-center">
             <Col xs="10">
               <Input
-                label="Gender"
                 name="gender"
                 placeholder="Gender"
                 className="input"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
               />
             </Col>
             <Col className="d-flex justify-content-end">
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle caret className="input" color="none" />
                 <DropdownMenu className="dropDownMenu">
-                  <DropdownItem className="dropMenuItem">Male</DropdownItem>
+                  <DropdownItem className="dropMenuItem" onClick={handleGender}>
+                    Male
+                  </DropdownItem>
                   <DropdownItem divider className="dropDownDivider" />
-                  <DropdownItem className="dropMenuItem">Female</DropdownItem>
+                  <DropdownItem className="dropMenuItem" onClick={handleGender}>
+                    Female
+                  </DropdownItem>
                   <DropdownItem divider className="dropDownDivider" />
-                  <DropdownItem className="dropMenuItem">Others</DropdownItem>
+                  <DropdownItem className="dropMenuItem" onClick={handleGender}>
+                    Others
+                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </Col>
@@ -100,13 +136,7 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
         </Col>
       </Row>
       <div className="d-flex flex-row-reverse">
-        <button
-          onClick={() => {
-            setPersonalDetails(false);
-            setKinDetails(true);
-          }}
-          className="cssbuttons-io-button mt-3 mb-3 mx-2"
-        >
+        <button type="submit" className="cssbuttons-io-button mt-3 mb-3 mx-2">
           Next
           <div className="icon">
             <svg
@@ -124,7 +154,7 @@ const PersonalDetailsInput = ({ setPersonalDetails, setKinDetails }) => {
           </div>
         </button>
       </div>
-    </>
+    </Form>
   );
 };
 
