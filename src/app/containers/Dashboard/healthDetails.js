@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Input, Label, Row, Form } from "reactstrap";
 import { fetchPatientDetails } from "./dashboardSlice";
+import { random } from "lodash";
 
 const HealthDetailsInput = ({
   setHealthDetails,
@@ -23,6 +24,7 @@ const HealthDetailsInput = ({
           dispatch(
             fetchPatientDetails({
               ...patientDetails,
+              id: random(100000, 999999),
               healthDetails: {
                 height: e.target.height.value,
                 weight: e.target.weight.value,

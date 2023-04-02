@@ -196,16 +196,57 @@
   border: none;
 }
 
+.btnCol {
+  position: absolute;
+  right: 0;
+}
+
 .addMedical,
 .addMedical:focus,
 .addMedical:active,
 .addMedical:hover {
   width: fit-content;
-  right: 0;
-  margin: 10px;
   outline: none;
   box-shadow: none;
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: none;
+  margin: 5px;
+}
+
+.clearMedical,
+.clearMedical:focus,
+.clearMedical:active,
+.clearMedical:hover {
+  width: fit-content;
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 99, 132, 0.3);
+  color: white;
+  border: none;
+  margin: 5px;
+}
+
+.table-header {
+  color: #fff;
+}
+
+.table-row {
+  vertical-align: middle;
+  color: white;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: white;
+  border: 1px solid #d6dee1;
+  border-radius: 5px;
+  box-shadow: 0 1px 10px 0 rgba(13, 14, 17, 0.37);
+  text-align: center;
+}
+
+.tableAction {
+  cursor: pointer;
 }

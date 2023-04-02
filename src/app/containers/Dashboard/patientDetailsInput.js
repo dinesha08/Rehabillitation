@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
+import { useSelector } from "react-redux";
 import PersonalDetailsInput from "./personalDetails";
 import HealthDetailsInput from "./healthDetails";
 import KinDetailsInput from "./kinDetails";

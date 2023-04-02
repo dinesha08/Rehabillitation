@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as operation from "./action";
 import ProfileSection from "./profileSection";
 import GraphSection from "./graphSection";
 
 const MainScreen = ({ accelerataion, brake, setInput }) => {
+  const dispatch = useDispatch();
+  const { patientDetails } = useSelector(
+    (state) => state.rehabilitationDetails
+  );
+
+  useEffect(() => {
+    dispatch(operation.saveMedicalRecord(patientDetails)); // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <ProfileSection />
@@ -11,7 +22,10 @@ const MainScreen = ({ accelerataion, brake, setInput }) => {
         <button
           type="submit"
           className="cssbuttons-io-button mt-3 mb-3 mx-5"
-          onClick={() => setInput(false)}
+          onClick={() => {
+            setInput(false);
+            dispatch(operation.clearMedicalRecord());
+          }}
         >
           Close
           <div className="icon">
