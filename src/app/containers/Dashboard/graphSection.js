@@ -23,6 +23,16 @@ const GraphSection = ({ accelerataion, brake }) => {
   const [loadCellforBrake, setLoadCellForBrake] = useState(2000);
   const [accelerataionThreshold, setAccelerataionThreshold] = useState([]);
   const [brakeThreshold, setBrakeThreshold] = useState([]);
+  const [accelerationGraphData, setAccelerationGraphData] = useState([]);
+  const [brakeGraphData, setBrakeGraphData] = useState([]);
+
+  useEffect(() => {
+    setAccelerationGraphData((prevState) => [...prevState, accelerataion]);
+  }, [accelerataion]);
+
+  useEffect(() => {
+    setBrakeGraphData((prevState) => [...prevState, brake]);
+  }, [brake]);
 
   useEffect(() => {
     for (let i = 0; i < 10; i++) {
@@ -109,12 +119,12 @@ const GraphSection = ({ accelerataion, brake }) => {
     }
   };
 
-  const accelerataionData = {
+  const accelerationData = {
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
       {
         label: "Acceleration",
-        data: [2000, 1500, 3000, 6000, 4500, 3000, 1000, 4000, 5500, 6000],
+        data: accelerationGraphData,
         backgroundColor: ["rgba(0, 197, 167, 0.2)"],
         borderColor: ["rgb(0, 197, 167)"],
         borderWidth: 1,
@@ -138,7 +148,7 @@ const GraphSection = ({ accelerataion, brake }) => {
     datasets: [
       {
         label: "Brake",
-        data: [2000, 1500, 3000, 6000, 4500, 3000, 1000, 4000, 5500, 6000],
+        data: brakeGraphData,
         backgroundColor: ["rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgb(255, 99, 132)"],
         borderWidth: 1,
@@ -163,7 +173,7 @@ const GraphSection = ({ accelerataion, brake }) => {
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs="6" className="text-center">
             <h5 className="mb-4">Acceleration</h5>
-            <Line data={accelerataionData} className="line mb-3" />
+            <Line data={accelerationData} className="line mb-3" />
             <Row className="d-flex justify-content-center align-items-center">
               <Col xs="5" className="d-flex">
                 <Col className="me-3">
