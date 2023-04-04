@@ -27,11 +27,21 @@ const GraphSection = ({ accelerataion, brake }) => {
   const [brakeGraphData, setBrakeGraphData] = useState([]);
 
   useEffect(() => {
-    setAccelerationGraphData((prevState) => [...prevState, accelerataion]);
+    if(accelerationGraphData.length >= 10){
+      accelerationGraphData.splice(0,1)
+      setAccelerationGraphData((prevState) => [...prevState, accelerataion]);
+    } else {
+      setAccelerationGraphData((prevState) => [...prevState, accelerataion]);
+    }
   }, [accelerataion]);
 
   useEffect(() => {
-    setBrakeGraphData((prevState) => [...prevState, brake]);
+   if(brakeGraphData.length >= 10){
+    brakeGraphData.splice(0,1)
+     setBrakeGraphData((prevState) => [...prevState, brake]);
+   } else {
+     setBrakeGraphData((prevState) => [...prevState, brake]);
+   }
   }, [brake]);
 
   useEffect(() => {
@@ -119,6 +129,18 @@ const GraphSection = ({ accelerataion, brake }) => {
     }
   };
 
+  const options = {
+      scales:{
+        y: [{
+          ticks: {
+            beginAtZero:true,
+            suggestedMax:1000,
+            suggestedMin:0,
+          }
+        }]
+      }
+    }
+
   const accelerationData = {
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
@@ -141,6 +163,7 @@ const GraphSection = ({ accelerataion, brake }) => {
         fill: true,
       },
     ],
+    
   };
 
   const brakeData = {
@@ -231,7 +254,7 @@ const GraphSection = ({ accelerataion, brake }) => {
           </Col>
           <Col xs="6" className=" d-flex flex-column">
             <h5 className="mb-4 text-center">Brake</h5>
-            <Line data={brakeData} className="line mb-3" />
+            <Line data={brakeData} options={options} className="line mb-3" />
             <Row className="d-flex justify-content-center align-items-center">
               <Col xs="5" className="d-flex">
                 <Col className="me-3">
