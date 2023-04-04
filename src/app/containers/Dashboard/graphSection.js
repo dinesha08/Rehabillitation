@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
-import "chartjs-adapter-moment";
+// import "chartjs-adapter-moment";
 
 const GraphSection = ({ accelerataion, brake }) => {
   const [dropdownOpenForAcceleration, setDropdownOpenForAcceleration] =
