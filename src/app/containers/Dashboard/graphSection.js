@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
+import "chartjs-adapter-moment";
 
 const GraphSection = ({ accelerataion, brake }) => {
   const [dropdownOpenForAcceleration, setDropdownOpenForAcceleration] =
@@ -143,6 +144,20 @@ const GraphSection = ({ accelerataion, brake }) => {
     ],
   };
 
+  const accelerationConfig = {
+    type: "line",
+    data: accelerationData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMin: 0,
+          suggestedMax: 10000,
+        },
+      },
+    },
+  };
+
   const brakeData = {
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
@@ -167,13 +182,27 @@ const GraphSection = ({ accelerataion, brake }) => {
     ],
   };
 
+  const brakeConfig = {
+    type: "line",
+    data: brakeData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMin: 0,
+          suggestedMax: 10000,
+        },
+      },
+    },
+  };
+
   return (
     <Card className="card mx-5 mb-2 mt-3">
       <CardBody>
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs="6" className="text-center">
             <h5 className="mb-4">Acceleration</h5>
-            <Line data={accelerationData} className="line mb-3" />
+            <Line {...accelerationConfig} className="line mb-3" />
             <Row className="d-flex justify-content-center align-items-center">
               <Col xs="5" className="d-flex">
                 <Col className="me-3">
@@ -231,7 +260,7 @@ const GraphSection = ({ accelerataion, brake }) => {
           </Col>
           <Col xs="6" className=" d-flex flex-column">
             <h5 className="mb-4 text-center">Brake</h5>
-            <Line data={brakeData} className="line mb-3" />
+            <Line {...brakeConfig} className="line mb-3" />
             <Row className="d-flex justify-content-center align-items-center">
               <Col xs="5" className="d-flex">
                 <Col className="me-3">
@@ -240,7 +269,7 @@ const GraphSection = ({ accelerataion, brake }) => {
                     placeholder="Load Cell"
                     className="input"
                     value={loadCellforBrake}
-                    onChange={(e) => setLoadCellForBrake(e.target.value)}
+                    onChange={handleLoadCellForBrake}
                   />
                 </Col>
                 <Col xs="3" className="ms-3 d-flex">
