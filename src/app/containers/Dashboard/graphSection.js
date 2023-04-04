@@ -28,11 +28,21 @@ const GraphSection = ({ accelerataion, brake }) => {
   const [brakeGraphData, setBrakeGraphData] = useState([]);
 
   useEffect(() => {
-    setAccelerationGraphData((prevState) => [...prevState, accelerataion]);
+    if (accelerationGraphData.length >= 10) {
+      accelerationGraphData.splice(0, 1);
+      setAccelerationGraphData((prevState) => [...prevState, accelerataion]);
+    } else {
+      setAccelerationGraphData((prevState) => [...prevState, accelerataion]);
+    }
   }, [accelerataion]);
 
   useEffect(() => {
-    setBrakeGraphData((prevState) => [...prevState, brake]);
+    if (brakeGraphData.length >= 10) {
+      brakeGraphData.splice(0, 1);
+      setBrakeGraphData((prevState) => [...prevState, brake]);
+    } else {
+      setBrakeGraphData((prevState) => [...prevState, brake]);
+    }
   }, [brake]);
 
   useEffect(() => {
