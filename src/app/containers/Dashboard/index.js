@@ -9,9 +9,9 @@ import MainScreen from "./mainScreen";
 import MedicalRecords from "./medicalRecords";
 
 const Dashboard = () => {
-  const [data, setData] = useState([]);
-  const [accelerataion, setAcceleration] = useState([]);
-  const [brake, setBrake] = useState([]);
+  const [data, setData] = useState('');
+  const [accelerataion, setAcceleration] = useState('');
+  const [brake, setBrake] = useState('');
   const [patientDetail, setPatientDetail] = useState(false);
   const [loader, setLoader] = useState(false);
   const [blankScreen, setBlankScreen] = useState(false);
@@ -21,13 +21,8 @@ const Dashboard = () => {
     axios
       .get("http://localhost:5000/data")
       .then((response) => {
-        setData(response.data);
-        data.forEach((item) => {
-          setAcceleration(item.split(",")[0]);
-          const remove = item.split(",")[1];
-          setBrake(remove.replace("\r", ""));
-        });
-        console.log({ Acceleration: accelerataion, Brake: brake });
+        setData(response.data)
+        // console.log(data)
       })
       .catch((error) => {
         console.log(error);
@@ -71,8 +66,7 @@ const Dashboard = () => {
                 </>
               ) : (
                 <MainScreen
-                  accelerataion={accelerataion}
-                  brake={brake}
+                  data={data}
                   setInput={setInput}
                 />
               )}

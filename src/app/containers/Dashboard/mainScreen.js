@@ -4,7 +4,7 @@ import * as operation from "./action";
 import ProfileSection from "./profileSection";
 import GraphSection from "./graphSection";
 
-const MainScreen = ({ accelerataion, brake, setInput }) => {
+const MainScreen = ({data, setInput }) => {
   const dispatch = useDispatch();
   const { patientDetails } = useSelector(
     (state) => state.rehabilitationDetails
@@ -17,7 +17,7 @@ const MainScreen = ({ accelerataion, brake, setInput }) => {
   return (
     <>
       <ProfileSection />
-      <GraphSection accelerataion={accelerataion} brake={brake} />
+      <GraphSection data={data} />
       <div className="d-flex flex-row-reverse">
         <button
           type="submit"

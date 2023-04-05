@@ -15,13 +15,17 @@ ports.pipe(parser);
 
 // Read the data from the serial port
 
-let data = [];
+let data = {};
 parser.on("data", (line) => {
-  if(data.length >= 10) {
-    data.splice(0,1);
-    data.push(line);
-  } else {
-    data.push(line);
+  // if(data.length >= 10) {
+  //   data.splice(0,1);
+  //   data.push(line);
+  // } else {
+  //   data.push(line);
+  // }
+  data = {
+    acceleration: line.split(",")[0],
+    brake: line.split(",")[1]
   }
 });
 
