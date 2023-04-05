@@ -19,20 +19,21 @@ const ProfileSection = () => {
   return (
     <Card className="card mx-5">
       <CardBody>
+        <i className="fa-solid fa-print position-absolute top-0 end-0 m-4 printBtn"></i>
         <Row className="d-flex justify-content-center align-items-center">
           <Col className="mx-5 d-flex justify-content-center align-items-center">
-            <Col xs="3" className="m-4 text-center">
+            <Col xs="3" className="mx-4 my-2 text-center">
               <img
                 src={require("./assert/profilePic.png")}
                 className="profilePic"
                 alt="profilePic"
               />
             </Col>
-            <Col className="m-4 d-flex flex-column">
+            <Col className="mx-4 d-flex flex-column">
               <Row>
                 <Col>
                   <h4>
-                    {personalDetails.firstName || "N/A"}
+                    {personalDetails.firstName || "N/A"}{" "}
                     {personalDetails.lastName}
                   </h4>
                 </Col>
@@ -47,24 +48,8 @@ const ProfileSection = () => {
                     <span className="key">Age: </span>
                     <span>{personalDetails.age || "N/A"}</span>
                   </h6>
-                  <h6>
-                    <span className="key">Mobile Number: </span>
-                    <span>
-                      {personalDetails.mobileNumber
-                        ? "+91 " + personalDetails.mobileNumber
-                        : "N/A"}
-                    </span>
-                  </h6>
-                  <h6>
-                    <span className="key">Alternate Mobile Number: </span>
-                    <span>
-                      {personalDetails.alternateMobileNumber
-                        ? "+91 " + personalDetails.alternateMobileNumber
-                        : "N/A"}
-                    </span>
-                  </h6>
                 </Col>
-                <Col className="m-4">
+                <Col className="mx-4">
                   <h6>
                     <span className="key">Height: </span>
                     <span>
@@ -81,14 +66,8 @@ const ProfileSection = () => {
                         : "N/A"}
                     </span>
                   </h6>
-                  <h6>
-                    <span className="key">Blood Pressure: </span>
-                    <span>
-                      {healthDetails.bloodPressure
-                        ? healthDetails.bloodPressure + " mmHg"
-                        : "N/A"}
-                    </span>
-                  </h6>
+                </Col>
+                <Col xs="6" className="mx-4">
                   <h6>
                     <span className="key">Region of Injury: </span>
                     <span>{healthDetails.regionOfInjury || "N/A"}</span>

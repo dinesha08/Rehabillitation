@@ -275,6 +275,16 @@ const GraphSection = ({ data }) => {
                   </Dropdown>
                 </Col>
               </Col>
+              <Col xs="5" className="d-flex">
+                <Col className="me-3">
+                  <span className="title">Force</span>
+                </Col>
+                <Col xs="3" className="ms-3 d-flex">
+                  {data.accelerationForce
+                    ? data.accelerationForce + "N"
+                    : "N/A"}
+                </Col>
+              </Col>
             </Row>
           </Col>
           <Col xs="6" className=" d-flex flex-column">
@@ -331,6 +341,14 @@ const GraphSection = ({ data }) => {
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
+                </Col>
+              </Col>
+              <Col xs="5" className="d-flex">
+                <Col className="me-3 text-center">
+                  <span className="title text-center">Force</span>
+                </Col>
+                <Col xs="3" className="ms-3 d-flex">
+                  {data.brakeForce ? data.brakeForce + "N" : "N/A"}
                 </Col>
               </Col>
             </Row>

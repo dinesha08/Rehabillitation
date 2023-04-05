@@ -161,7 +161,7 @@
 
 .profilePic {
   height: auto;
-  width: 60%;
+  width: 40%;
   border-radius: 50%;
 }
 
@@ -248,5 +248,9 @@
 }
 
 .tableAction {
+  cursor: pointer;
+}
+
+.printBtn {
   cursor: pointer;
 }
