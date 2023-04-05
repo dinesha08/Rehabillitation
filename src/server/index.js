@@ -17,16 +17,10 @@ ports.pipe(parser);
 
 let data = {};
 parser.on("data", (line) => {
-  // if(data.length >= 10) {
-  //   data.splice(0,1);
-  //   data.push(line);
-  // } else {
-  //   data.push(line);
-  // }
   data = {
     acceleration: line.split(",")[0],
-    brake: line.split(",")[1]
-  }
+    brake: line.split(",")[1],
+  };
 });
 
 const server = http.createServer((req, res) => {

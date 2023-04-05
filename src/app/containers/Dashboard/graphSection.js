@@ -24,31 +24,37 @@ const GraphSection = ({ data }) => {
   const [loadCellforBrake, setLoadCellForBrake] = useState(2000);
   const [accelerataionThreshold, setAccelerataionThreshold] = useState([]);
   const [brakeThreshold, setBrakeThreshold] = useState([]);
-  // const [accelerationGraphData, setAccelerationGraphData] = useState([]);
-  // const [brakeGraphData, setBrakeGraphData] = useState([]);
-
-  // useEffect(() => {
-  //   // if (accelerationGraphData.length >= 10) {
-  //   //   accelerationGraphData.splice(0, 1);
-  //   //   setAccelerationGraphData((prevState) => [...prevState, data.acceleration]);
-  //   // } else {
-  //   //   setAccelerationGraphData((prevState) => [...prevState, data.acceleration]);
-  //   // }
-  //   setAccelerationGraphData((prevState) => [...prevState, data.acceleration]);
-  // }, [data.acceleration]);
-
-  // useEffect(() => {
-  //   // if (brakeGraphData.length >= 10) {
-  //   //   brakeGraphData.splice(0, 1);
-  //   //   setBrakeGraphData((prevState) => [...prevState, data.brake]);
-  //   // } else {
-  //   //   setBrakeGraphData((prevState) => [...prevState, data.brake]);
-  //   // }
-  //    setBrakeGraphData((prevState) => [...prevState, data.brake]);
-  // }, [data.brake]);
+  const [accelerationGraphData, setAccelerationGraphData] = useState(
+    new Array(401).fill(0)
+  );
+  const [brakeGraphData, setBrakeGraphData] = useState(new Array(401).fill(0));
 
   useEffect(() => {
-    for (let i = 0; i < 10; i++) {
+    if (accelerationGraphData.length >= 400) {
+      accelerationGraphData.splice(0, 1);
+      setAccelerationGraphData((prevState) => [
+        ...prevState,
+        data.acceleration,
+      ]);
+    } else {
+      setAccelerationGraphData((prevState) => [
+        ...prevState,
+        data.acceleration,
+      ]);
+    }
+  }, [data.acceleration]);
+
+  useEffect(() => {
+    if (brakeGraphData.length >= 400) {
+      brakeGraphData.splice(0, 1);
+      setBrakeGraphData((prevState) => [...prevState, data.brake]);
+    } else {
+      setBrakeGraphData((prevState) => [...prevState, data.brake]);
+    }
+  }, [data.brake]);
+
+  useEffect(() => {
+    for (let i = 0; i < 400; i++) {
       setAccelerataionThreshold((prevState) => [...prevState, 2000]);
       setBrakeThreshold((prevState) => [...prevState, 2000]);
     }
@@ -63,32 +69,32 @@ const GraphSection = ({ data }) => {
     setAccelerataionThreshold([]);
     if (e.target.innerText === "Stage 1") {
       setLoadCellForAcceleration(2000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 2000]);
       }
     }
     if (e.target.innerText === "Stage 2") {
       setLoadCellForAcceleration(4000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 4000]);
       }
     }
     if (e.target.innerText === "Stage 3") {
       setLoadCellForAcceleration(6000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 6000]);
       }
     }
     if (e.target.innerText === "Stage 4") {
       setLoadCellForAcceleration(8000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 8000]);
       }
     }
     if (e.target.value) {
       setAccelerataionThreshold([]);
       setLoadCellForAcceleration(e.target.value);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setAccelerataionThreshold((prevState) => [
           ...prevState,
           e.target.value,
@@ -101,25 +107,25 @@ const GraphSection = ({ data }) => {
     setBrakeThreshold([]);
     if (e.target.innerText === "Stage 1") {
       setLoadCellForBrake(2000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setBrakeThreshold((prevState) => [...prevState, 2000]);
       }
     }
     if (e.target.innerText === "Stage 2") {
       setLoadCellForBrake(4000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setBrakeThreshold((prevState) => [...prevState, 4000]);
       }
     }
     if (e.target.innerText === "Stage 3") {
       setLoadCellForBrake(6000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setBrakeThreshold((prevState) => [...prevState, 6000]);
       }
     }
     if (e.target.innerText === "Stage 4") {
       setLoadCellForBrake(8000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 400; i++) {
         setBrakeThreshold((prevState) => [...prevState, 8000]);
       }
     }
@@ -132,36 +138,12 @@ const GraphSection = ({ data }) => {
     }
   };
 
-  // const accelerationData = {
-  //   labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  //   datasets: [
-  //     {
-  //       label: "Acceleration",
-  //       data: accelerationGraphData,
-  //       backgroundColor: ["rgba(0, 197, 167, 0.2)"],
-  //       borderColor: ["rgb(0, 197, 167)"],
-  //       borderWidth: 1,
-  //       cubicInterpolationMode: "monotone",
-  //       fill: true,
-  //     },
-  //     {
-  //       label: "Threshold",
-  //       data: accelerataionThreshold,
-  //       backgroundColor: ["rgba(255, 205, 86, 0.2)"],
-  //       borderColor: ["rgb(255, 205, 86)"],
-  //       borderWidth: 1,
-  //       cubicInterpolationMode: "monotone",
-  //       fill: true,
-  //     },
-  //   ],
-  // };
-
-  const [accelerationData, setAccelerationData] = useState({
-    labels: [],
+  const accelerationData = {
+    labels: Array.from({ length: 400 }, (_, i) => i + 1),
     datasets: [
       {
         label: "Acceleration",
-        data: [],
+        data: accelerationGraphData,
         backgroundColor: ["rgba(0, 197, 167, 0.2)"],
         borderColor: ["rgb(0, 197, 167)"],
         borderWidth: 1,
@@ -170,7 +152,7 @@ const GraphSection = ({ data }) => {
       },
       {
         label: "Threshold",
-        data: [],
+        data: accelerataionThreshold,
         backgroundColor: ["rgba(255, 205, 86, 0.2)"],
         borderColor: ["rgb(255, 205, 86)"],
         borderWidth: 1,
@@ -178,31 +160,7 @@ const GraphSection = ({ data }) => {
         fill: true,
       },
     ],
-  });
-
-  const [brakeData, setBrakeData] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: "Brake",
-        data: [],
-        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-        borderColor: ["rgb(255, 99, 132)"],
-        borderWidth: 1,
-        // cubicInterpolationMode: "monotone",
-        fill: true,
-      },
-      {
-        label: "Threshold",
-        data: [],
-        backgroundColor: ["rgba(255, 205, 86, 0.2)"],
-        borderColor: ["rgb(255, 205, 86)"],
-        borderWidth: 1,
-        // cubicInterpolationMode: "monotone",
-        fill: true,
-      },
-    ],
-  });
+  };
 
   const accelerationConfig = {
     type: "line",
@@ -218,29 +176,29 @@ const GraphSection = ({ data }) => {
     },
   };
 
-  // const brakeData = {
-  //   labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  //   datasets: [
-  //     {
-  //       label: "Brake",
-  //       data: brakeGraphData,
-  //       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-  //       borderColor: ["rgb(255, 99, 132)"],
-  //       borderWidth: 1,
-  //       cubicInterpolationMode: "monotone",
-  //       fill: true,
-  //     },
-  //     {
-  //       label: "Threshold",
-  //       data: brakeThreshold,
-  //       backgroundColor: ["rgba(255, 205, 86, 0.2)"],
-  //       borderColor: ["rgb(255, 205, 86)"],
-  //       borderWidth: 1,
-  //       cubicInterpolationMode: "monotone",
-  //       fill: true,
-  //     },
-  //   ],
-  // };
+  const brakeData = {
+    labels: Array.from({ length: 400 }, (_, i) => i + 1),
+    datasets: [
+      {
+        label: "Brake",
+        data: brakeGraphData,
+        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+        borderColor: ["rgb(255, 99, 132)"],
+        borderWidth: 1,
+        cubicInterpolationMode: "monotone",
+        fill: true,
+      },
+      {
+        label: "Threshold",
+        data: brakeThreshold,
+        backgroundColor: ["rgba(255, 205, 86, 0.2)"],
+        borderColor: ["rgb(255, 205, 86)"],
+        borderWidth: 1,
+        cubicInterpolationMode: "monotone",
+        fill: true,
+      },
+    ],
+  };
 
   const brakeConfig = {
     type: "line",
@@ -256,47 +214,9 @@ const GraphSection = ({ data }) => {
     },
   };
 
- 
-
-  useEffect(() => {
-      const intervalId = setInterval(()=> {
-        const newAccelerationData = {
-          labels: [...accelerationData.labels, accelerationData.labels.length + 1],
-          datasets: [
-            {
-              ...accelerationData.datasets[0],
-              data: [...accelerationData.datasets[0].data, data.acceleration],
-            },
-            {
-              ...accelerationData.datasets[1],
-              data: [...accelerationData.datasets[1].data, accelerataionThreshold],
-            },
-          ],
-        };
-        
-        setAccelerationData(newAccelerationData);
-  
-        const newBrakeData = {
-          labels: [...brakeData.labels, brakeData.labels.length + 1],
-          datasets: [
-            {
-              ...brakeData.datasets[0],
-              data: [...brakeData.datasets[0].data, data.brake],
-            },
-            {
-              ...brakeData.datasets[1],
-              data: [...brakeData.datasets[1].data, 5000],
-            },
-          ],
-        };
-        setBrakeData(newBrakeData);
-      },300)
-
-      return () => clearInterval(intervalId)
-  }, [accelerationData, brakeData]);
-
   return (
-    <Card className="card mx-5 mb-2 mt-3">{console.log(data.acceleration)}
+    <Card className="card mx-5 mb-2 mt-3">
+      {console.log(data.acceleration)}
       <CardBody>
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs="6" className="text-center">
