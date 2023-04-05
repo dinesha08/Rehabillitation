@@ -20,6 +20,8 @@ parser.on("data", (line) => {
   data = {
     acceleration: line.split(",")[0],
     brake: line.split(",")[1],
+    accelerationForce: line.split(',')[2],
+    brakeForce:line.split(',')[3]
   };
 });
 

@@ -10,8 +10,6 @@ import MedicalRecords from "./medicalRecords";
 
 const Dashboard = () => {
   const [data, setData] = useState("");
-  const [accelerataion, setAcceleration] = useState("");
-  const [brake, setBrake] = useState("");
   const [patientDetail, setPatientDetail] = useState(false);
   const [loader, setLoader] = useState(false);
   const [blankScreen, setBlankScreen] = useState(false);
@@ -22,6 +20,7 @@ const Dashboard = () => {
       .get("http://localhost:5000/data")
       .then((response) => {
         setData(response.data);
+        console.log(data)
       })
       .catch((error) => {
         console.log(error);

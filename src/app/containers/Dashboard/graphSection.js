@@ -25,12 +25,12 @@ const GraphSection = ({ data }) => {
   const [accelerataionThreshold, setAccelerataionThreshold] = useState([]);
   const [brakeThreshold, setBrakeThreshold] = useState([]);
   const [accelerationGraphData, setAccelerationGraphData] = useState(
-    new Array(401).fill(0)
+    new Array(101).fill(0)
   );
-  const [brakeGraphData, setBrakeGraphData] = useState(new Array(401).fill(0));
+  const [brakeGraphData, setBrakeGraphData] = useState(new Array(101).fill(0));
 
   useEffect(() => {
-    if (accelerationGraphData.length >= 400) {
+    if (accelerationGraphData.length >= 101) {
       accelerationGraphData.splice(0, 1);
       setAccelerationGraphData((prevState) => [
         ...prevState,
@@ -45,7 +45,7 @@ const GraphSection = ({ data }) => {
   }, [data.acceleration]);
 
   useEffect(() => {
-    if (brakeGraphData.length >= 400) {
+    if (brakeGraphData.length >= 101) {
       brakeGraphData.splice(0, 1);
       setBrakeGraphData((prevState) => [...prevState, data.brake]);
     } else {
@@ -54,7 +54,7 @@ const GraphSection = ({ data }) => {
   }, [data.brake]);
 
   useEffect(() => {
-    for (let i = 0; i < 400; i++) {
+    for (let i = 0; i < 100; i++) {
       setAccelerataionThreshold((prevState) => [...prevState, 2000]);
       setBrakeThreshold((prevState) => [...prevState, 2000]);
     }
@@ -69,32 +69,32 @@ const GraphSection = ({ data }) => {
     setAccelerataionThreshold([]);
     if (e.target.innerText === "Stage 1") {
       setLoadCellForAcceleration(2000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 2000]);
       }
     }
     if (e.target.innerText === "Stage 2") {
       setLoadCellForAcceleration(4000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 4000]);
       }
     }
     if (e.target.innerText === "Stage 3") {
       setLoadCellForAcceleration(6000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 6000]);
       }
     }
     if (e.target.innerText === "Stage 4") {
       setLoadCellForAcceleration(8000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setAccelerataionThreshold((prevState) => [...prevState, 8000]);
       }
     }
     if (e.target.value) {
       setAccelerataionThreshold([]);
       setLoadCellForAcceleration(e.target.value);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setAccelerataionThreshold((prevState) => [
           ...prevState,
           e.target.value,
@@ -107,39 +107,39 @@ const GraphSection = ({ data }) => {
     setBrakeThreshold([]);
     if (e.target.innerText === "Stage 1") {
       setLoadCellForBrake(2000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 2000]);
       }
     }
     if (e.target.innerText === "Stage 2") {
       setLoadCellForBrake(4000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 4000]);
       }
     }
     if (e.target.innerText === "Stage 3") {
       setLoadCellForBrake(6000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 6000]);
       }
     }
     if (e.target.innerText === "Stage 4") {
       setLoadCellForBrake(8000);
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 8000]);
       }
     }
     if (e.target.value) {
       setBrakeThreshold([]);
       setLoadCellForBrake(e.target.value);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, e.target.value]);
       }
     }
   };
 
   const accelerationData = {
-    labels: Array.from({ length: 400 }, (_, i) => i + 1),
+    labels: Array.from({ length: 100 }, (_, i) => i + 1),
     datasets: [
       {
         label: "Acceleration",
@@ -177,7 +177,7 @@ const GraphSection = ({ data }) => {
   };
 
   const brakeData = {
-    labels: Array.from({ length: 400 }, (_, i) => i + 1),
+    labels: Array.from({ length: 100 }, (_, i) => i + 1),
     datasets: [
       {
         label: "Brake",
