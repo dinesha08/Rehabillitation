@@ -7,7 +7,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { fetchAllMedicalRecords } from "./action";
 import { useDispatch, useSelector } from "react-redux";
 
-const MedicalRecords = ({ setInput, setPatientDetail }) => {
+const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
   const dispatch = useDispatch();
   const { medicalRecords } = useSelector(
     (state) => state.rehabilitationDetails
@@ -15,7 +15,7 @@ const MedicalRecords = ({ setInput, setPatientDetail }) => {
 
   const columns = [
     {
-      dataField: "id",
+      dataField: null,
       text: "ID",
       formatter: (cell, row, rowIndex) => rowIndex + 1,
     },
@@ -46,9 +46,22 @@ const MedicalRecords = ({ setInput, setPatientDetail }) => {
       formatter: (cell, row, rowIndex) => {
         return (
           <div className="d-flex justify-content-center">
-            <i className="fa-solid fa-eye fa-xs mx-2 tableAction"></i>
-            <i className="fa-solid fa-pen fa-xs mx-2 text-primary tableAction"></i>
-            <i className="fa-solid fa-trash fa-xs mx-2 text-danger tableAction"></i>
+            <i className="fa-solid fa-print fa-xs mx-2 tableAction"></i>
+            <i
+              className="fa-solid fa-pen fa-xs mx-2 text-primary tableAction"
+              onClick={() => {
+                dispatch(operation.fetchMedicalRecord(row.id));
+                setInput(true);
+                setPatientDetail(true);
+                setEdit(true);
+              }}
+            ></i>
+            <i
+              className="fa-solid fa-trash fa-xs mx-2 text-danger tableAction"
+              onClick={() => {
+                dispatch(operation.removeMedicalRecord(row.id));
+              }}
+            ></i>
           </div>
         );
       },
@@ -58,6 +71,50 @@ const MedicalRecords = ({ setInput, setPatientDetail }) => {
   useEffect(() => {
     dispatch(fetchAllMedicalRecords()); // eslint-disable-next-line
   }, []);
+
+  const expandRow = {
+    onlyOneExpanding: true,
+    renderer: (row) => {
+      return (
+        <>
+          <Card className="card mx-5">
+            <CardBody>
+              <Row className="expand-row d-flex justify-content-center align-items-center">
+                <Col className="mx-5 d-flex justify-content-center align-items-center">
+                  <Col xs="2" />
+                  <Col xs="3" className="mx-4 my-2 text-center">
+                    <img
+                      src={require("./assert/profilePic.png")}
+                      className="profilePic"
+                      alt="profilePic"
+                    />
+                  </Col>
+                  <Col className="mx-4 d-flex flex-column">
+                    <Row className="d-flex align-items-center text-start">
+                      <Col xs="6" className="mx-4">
+                        <h6>
+                          <span className="key">Region of Injury: </span>
+                          <span>
+                            {row.healthDetails.regionOfInjury || "N/A"}
+                          </span>
+                        </h6>
+                        <h6>
+                          <span className="key">Cause of Injury: </span>
+                          <span>
+                            {row.healthDetails.causeOfInjury || "N/A"}
+                          </span>
+                        </h6>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
+        </>
+      );
+    },
+  };
 
   return (
     <>
@@ -98,8 +155,10 @@ const MedicalRecords = ({ setInput, setPatientDetail }) => {
                 columns={columns}
                 headerClasses="table-header"
                 rowClasses="table-row"
+                bodyClasses="table-body"
                 classes="table"
                 noDataIndication="No Medical Records Found"
+                expandRow={expandRow}
               />
             </Col>
           </Row>

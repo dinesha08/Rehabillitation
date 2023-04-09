@@ -12,6 +12,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { fetchPatientDetails } from "./dashboardSlice";
+import { get } from "lodash";
 
 const KinDetailsInput = ({
   setKinDetails,
@@ -32,9 +33,25 @@ const KinDetailsInput = ({
     setGender(e.target.innerText);
   };
 
+  const initialValues = {
+    firstName: get(patientDetails, "kinDetails.firstName", ""),
+    lastName: get(patientDetails, "kinDetails.lastName", ""),
+    relationshipType: get(patientDetails, "kinDetails.relationshipType", ""),
+    gender: get(patientDetails, "kinDetails.gender", gender),
+    age: get(patientDetails, "kinDetails.age", ""),
+    address: get(patientDetails, "kinDetails.address", ""),
+    mobileNumber: get(patientDetails, "kinDetails.mobileNumber", ""),
+    alternateMobileNumber: get(
+      patientDetails,
+      "kinDetails.alternateMobileNumber",
+      ""
+    ),
+  };
+
   return (
     <>
       <Form
+        initialvalues={initialValues}
         onSubmit={(e) => {
           e.preventDefault();
           dispatch(
@@ -76,6 +93,7 @@ const KinDetailsInput = ({
               name="firstName"
               placeholder="First Name"
               className="input"
+              defaultValue={initialValues.firstName}
             />
           </Col>
           <Col xs="6">
@@ -85,6 +103,7 @@ const KinDetailsInput = ({
               name="lastName"
               placeholder="Last Name"
               className="input"
+              defaultValue={initialValues.lastName}
             />
           </Col>
         </Row>
@@ -96,6 +115,7 @@ const KinDetailsInput = ({
               name="relationshipType"
               placeholder="Relationship Type"
               className="input"
+              defaultValue={initialValues.relationshipType}
             />
           </Col>
           <Col xs="6">
@@ -106,7 +126,7 @@ const KinDetailsInput = ({
                   name="gender"
                   placeholder="Gender"
                   className="input"
-                  value={gender}
+                  value={initialValues.gender}
                   onChange={(e) => setGender(e.target.value)}
                 />
               </Col>
@@ -143,7 +163,13 @@ const KinDetailsInput = ({
         <Row>
           <Col xs="6">
             <Label className="label">Age</Label>
-            <Input label="Age" name="age" placeholder="Age" className="input" />
+            <Input
+              label="Age"
+              name="age"
+              placeholder="Age"
+              className="input"
+              defaultValue={initialValues.age}
+            />
           </Col>
           <Col xs="6">
             <Label className="label">Address</Label>
@@ -152,6 +178,7 @@ const KinDetailsInput = ({
               name="address"
               placeholder="Address"
               className="input"
+              defaultValue={initialValues.address}
             />
           </Col>
         </Row>
@@ -163,6 +190,7 @@ const KinDetailsInput = ({
               name="mobileNumber"
               placeholder="Mobile Number"
               className="input"
+              defaultValue={initialValues.mobileNumber}
             />
           </Col>
           <Col xs="6">
@@ -172,6 +200,7 @@ const KinDetailsInput = ({
               name="alternateMobileNumber"
               placeholder="Alternate Mobile Number"
               className="input"
+              defaultValue={initialValues.alternateMobileNumber}
             />
           </Col>
         </Row>

@@ -4,14 +4,20 @@ import * as operation from "./action";
 import ProfileSection from "./profileSection";
 import GraphSection from "./graphSection";
 
-const MainScreen = ({data, setInput }) => {
+const MainScreen = ({ data, setInput, setEdit, edit }) => {
   const dispatch = useDispatch();
   const { patientDetails } = useSelector(
     (state) => state.rehabilitationDetails
   );
 
   useEffect(() => {
-    dispatch(operation.saveMedicalRecord(patientDetails)); // eslint-disable-next-line
+    if (!edit) {
+      dispatch(operation.saveMedicalRecord(patientDetails));
+    } else {
+      setEdit(false);
+      dispatch(operation.updateMedicalRecord(patientDetails));
+    }
+    // eslint-disable-next-line
   }, []);
 
   return (

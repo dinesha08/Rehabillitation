@@ -14,13 +14,14 @@ const Dashboard = () => {
   const [loader, setLoader] = useState(false);
   const [blankScreen, setBlankScreen] = useState(false);
   const [input, setInput] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/data")
       .then((response) => {
         setData(response.data);
-        console.log(data)
+        console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -63,13 +64,19 @@ const Dashboard = () => {
                   </Card>
                 </>
               ) : (
-                <MainScreen data={data} setInput={setInput} />
+                <MainScreen
+                  data={data}
+                  setInput={setInput}
+                  setEdit={setEdit}
+                  edit={edit}
+                />
               )}
             </>
           ) : (
             <MedicalRecords
               setInput={setInput}
               setPatientDetail={setPatientDetail}
+              setEdit={setEdit}
             />
           )}
         </>

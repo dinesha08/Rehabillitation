@@ -1,3 +1,4 @@
+import { map } from "lodash";
 import { fetchMedicalRecords, fetchPatientDetails } from "./dashboardSlice";
 
 export const fetchAllMedicalRecords = () => {
@@ -25,23 +26,28 @@ export const fetchMedicalRecord = (id) => {
   return async (dispatch) => {
     let medicalRecord = {};
     let medicalRecords = localStorage.getItem("medicalRecords");
-    medicalRecord = medicalRecords.find((record) => record.id === id);
-    console.log(medicalRecord);
+    medicalRecords = JSON.parse(medicalRecords);
+    map(medicalRecords, (record) => {
+      if (record.id === id) {
+        medicalRecord = record;
+      }
+    });
     await dispatch(fetchPatientDetails(medicalRecord));
   };
 };
 
 export const updateMedicalRecord = (medicalRecord) => {
   return async (dispatch) => {
-    // let medicalRecords = JSON.parse(localStorage.getItem("medicalRecords"));
-    // medicalRecords = medicalRecords.map((record) => {
-    //   if (record.id === medicalRecord.id) {
-    //     return medicalRecord;
-    //   }
-    //   return record;
-    // });
-    // localStorage.setItem("medicalRecords", JSON.stringify(medicalRecords));
-    // dispatch(fetchMedicalRecords(medicalRecords));
+    let medicalRecords = JSON.parse(localStorage.getItem("medicalRecords"));
+    medicalRecords = medicalRecords.map((record) => {
+      if (record.id === medicalRecord.id) {
+        return medicalRecord;
+      } else {
+        return record;
+      }
+    });
+    localStorage.setItem("medicalRecords", JSON.stringify(medicalRecords));
+    dispatch(fetchMedicalRecords(medicalRecords));
   };
 };
 

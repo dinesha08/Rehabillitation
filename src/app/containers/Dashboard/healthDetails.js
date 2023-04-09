@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Input, Label, Row, Form } from "reactstrap";
 import { fetchPatientDetails } from "./dashboardSlice";
-import { random } from "lodash";
+import { get, random } from "lodash";
 
 const HealthDetailsInput = ({
   setHealthDetails,
@@ -16,15 +16,24 @@ const HealthDetailsInput = ({
     (state) => state.rehabilitationDetails
   );
 
+  const initialValues = {
+    height: get(patientDetails, "healthDetails.height", ""),
+    weight: get(patientDetails, "healthDetails.weight", ""),
+    bloodPressure: get(patientDetails, "healthDetails.bloodPressure", ""),
+    regionOfInjury: get(patientDetails, "healthDetails.regionOfInjury", ""),
+    causeOfInjury: get(patientDetails, "healthDetails.causeOfInjury", ""),
+  };
+
   return (
     <>
       <Form
+        initialvalues={initialValues}
         onSubmit={(e) => {
           e.preventDefault();
           dispatch(
             fetchPatientDetails({
               ...patientDetails,
-              id: random(100000, 999999),
+              id: patientDetails.id || random(100000, 999999),
               healthDetails: {
                 height: e.target.height.value,
                 weight: e.target.weight.value,
@@ -60,6 +69,7 @@ const HealthDetailsInput = ({
               name="height"
               placeholder="Height"
               className="input"
+              defaultValue={initialValues.height}
             />
           </Col>
           <Col xs="6">
@@ -69,6 +79,7 @@ const HealthDetailsInput = ({
               name="weight"
               placeholder="Weight"
               className="input"
+              defaultValue={initialValues.weight}
             />
           </Col>
         </Row>
@@ -80,6 +91,7 @@ const HealthDetailsInput = ({
               name="bloodPressure"
               placeholder="Blood Pressure"
               className="input"
+              defaultValue={initialValues.bloodPressure}
             />
           </Col>
         </Row>
@@ -92,6 +104,7 @@ const HealthDetailsInput = ({
               placeholder="Region of Injury"
               className="textArea"
               type="textarea"
+              defaultValue={initialValues.regionOfInjury}
             />
           </Col>
           <Col xs="6">
@@ -102,6 +115,7 @@ const HealthDetailsInput = ({
               placeholder="Cause of Injury"
               className="textArea"
               type="textarea"
+              defaultValue={initialValues.causeOfInjury}
             />
           </Col>
         </Row>
