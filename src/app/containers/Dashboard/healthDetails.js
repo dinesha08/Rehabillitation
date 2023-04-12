@@ -63,7 +63,7 @@ const HealthDetailsInput = ({
         </Row>
         <Row>
           <Col xs="6">
-            <Label className="label">Height (m)</Label>
+            <Label className="label">Height (ft)</Label>
             <Input
               label="Height"
               name="height"

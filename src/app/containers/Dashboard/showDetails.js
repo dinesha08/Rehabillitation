@@ -59,7 +59,7 @@ const ShowDetails = ({ setShowDetails }) => {
                   <Col className="m-4">
                     <h6>
                       <span className="key">Height: </span>
-                      <span>{healthDetails.height} m</span>
+                      <span>{healthDetails.height} ft</span>
                     </h6>
                     <h6>
                       <span className="key">Weight: </span>

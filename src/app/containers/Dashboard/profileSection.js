@@ -54,7 +54,7 @@ const ProfileSection = () => {
                     <span className="key">Height: </span>
                     <span>
                       {healthDetails.height
-                        ? healthDetails.height + " m"
+                        ? healthDetails.height + " ft"
                         : "N/A"}
                     </span>
                   </h6>

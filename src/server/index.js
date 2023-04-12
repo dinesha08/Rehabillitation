@@ -5,7 +5,7 @@ const { ReadlineParser } = require("@serialport/parser-readline");
 
 // Defining the serial port
 const ports = new SerialPort({
-  path: "COM6",
+  path: "COM3",
   baudRate: 9600,
 });
 
@@ -20,8 +20,8 @@ parser.on("data", (line) => {
   data = {
     acceleration: line.split(",")[0],
     brake: line.split(",")[1],
-    accelerationForce: line.split(',')[2],
-    brakeForce:line.split(',')[3]
+    accelerationForce: line.split(",")[2],
+    brakeForce: line.split(",")[3],
   };
 });
 

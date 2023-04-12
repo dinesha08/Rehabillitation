@@ -20,8 +20,8 @@ const GraphSection = ({ data }) => {
   const [dropdownOpenForAcceleration, setDropdownOpenForAcceleration] =
     useState(false);
   const [dropdownOpenForBrake, setDropdownOpenForBrake] = useState(false);
-  const [loadCellforAcceleration, setLoadCellForAcceleration] = useState(2000);
-  const [loadCellforBrake, setLoadCellForBrake] = useState(2000);
+  const [loadCellforAcceleration, setLoadCellForAcceleration] = useState(3000);
+  const [loadCellforBrake, setLoadCellForBrake] = useState(4000);
   const [accelerataionThreshold, setAccelerataionThreshold] = useState([]);
   const [brakeThreshold, setBrakeThreshold] = useState([]);
   const [accelerationGraphData, setAccelerationGraphData] = useState(
@@ -41,7 +41,7 @@ const GraphSection = ({ data }) => {
         ...prevState,
         data.acceleration,
       ]);
-    }
+    } // eslint-disable-next-line
   }, [data.acceleration]);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const GraphSection = ({ data }) => {
       setBrakeGraphData((prevState) => [...prevState, data.brake]);
     } else {
       setBrakeGraphData((prevState) => [...prevState, data.brake]);
-    }
+    } // eslint-disable-next-line
   }, [data.brake]);
 
   useEffect(() => {
@@ -68,27 +68,27 @@ const GraphSection = ({ data }) => {
   const handleLoadCellForAcceleration = (e) => {
     setAccelerataionThreshold([]);
     if (e.target.innerText === "Stage 1") {
-      setLoadCellForAcceleration(2000);
+      setLoadCellForAcceleration(3000);
       for (let i = 0; i < 100; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 2000]);
+        setAccelerataionThreshold((prevState) => [...prevState, 3000]);
       }
     }
     if (e.target.innerText === "Stage 2") {
-      setLoadCellForAcceleration(4000);
+      setLoadCellForAcceleration(5000);
       for (let i = 0; i < 100; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 4000]);
+        setAccelerataionThreshold((prevState) => [...prevState, 5000]);
       }
     }
     if (e.target.innerText === "Stage 3") {
-      setLoadCellForAcceleration(6000);
+      setLoadCellForAcceleration(7000);
       for (let i = 0; i < 100; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 6000]);
+        setAccelerataionThreshold((prevState) => [...prevState, 7000]);
       }
     }
     if (e.target.innerText === "Stage 4") {
-      setLoadCellForAcceleration(8000);
+      setLoadCellForAcceleration(10000);
       for (let i = 0; i < 100; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 8000]);
+        setAccelerataionThreshold((prevState) => [...prevState, 10000]);
       }
     }
     if (e.target.value) {
@@ -105,28 +105,35 @@ const GraphSection = ({ data }) => {
 
   const handleLoadCellForBrake = (e) => {
     setBrakeThreshold([]);
+
     if (e.target.innerText === "Stage 1") {
-      setLoadCellForBrake(2000);
-      for (let i = 0; i < 100; i++) {
-        setBrakeThreshold((prevState) => [...prevState, 2000]);
-      }
-    }
-    if (e.target.innerText === "Stage 2") {
       setLoadCellForBrake(4000);
       for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 4000]);
       }
     }
-    if (e.target.innerText === "Stage 3") {
+    if (e.target.innerText === "Stage 2") {
       setLoadCellForBrake(6000);
       for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 6000]);
       }
     }
-    if (e.target.innerText === "Stage 4") {
+    if (e.target.innerText === "Stage 3") {
       setLoadCellForBrake(8000);
       for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 8000]);
+      }
+    }
+    if (e.target.innerText === "Stage 4") {
+      setLoadCellForBrake(10000);
+      for (let i = 0; i < 100; i++) {
+        setBrakeThreshold((prevState) => [...prevState, 10000]);
+      }
+    }
+    if (e.target.innerText === "Stage 5") {
+      setLoadCellForBrake(12000);
+      for (let i = 0; i < 100; i++) {
+        setBrakeThreshold((prevState) => [...prevState, 12000]);
       }
     }
     if (e.target.value) {
@@ -216,7 +223,6 @@ const GraphSection = ({ data }) => {
 
   return (
     <Card className="card mx-5 mb-2 mt-3">
-      {console.log(data.acceleration)}
       <CardBody>
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs="6" className="text-center">
@@ -281,7 +287,7 @@ const GraphSection = ({ data }) => {
                 </Col>
                 <Col xs="3" className="ms-3 d-flex">
                   {data.accelerationForce
-                    ? data.accelerationForce + "N"
+                    ? data.accelerationForce + " N"
                     : "N/A"}
                 </Col>
               </Col>
@@ -338,6 +344,13 @@ const GraphSection = ({ data }) => {
                         onClick={handleLoadCellForBrake}
                       >
                         Stage 4
+                      </DropdownItem>
+                      <DropdownItem divider className="dropDownDivider" />
+                      <DropdownItem
+                        className="dropMenuItem"
+                        onClick={handleLoadCellForBrake}
+                      >
+                        Stage 5
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
