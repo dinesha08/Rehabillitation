@@ -14,7 +14,6 @@ import {
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
-// import "chartjs-adapter-moment";
 
 const GraphSection = ({ data }) => {
   const [dropdownOpenForAcceleration, setDropdownOpenForAcceleration] =
@@ -55,8 +54,8 @@ const GraphSection = ({ data }) => {
 
   useEffect(() => {
     for (let i = 0; i < 100; i++) {
-      setAccelerataionThreshold((prevState) => [...prevState, 2000]);
-      setBrakeThreshold((prevState) => [...prevState, 2000]);
+      setAccelerataionThreshold((prevState) => [...prevState, 3000]);
+      setBrakeThreshold((prevState) => [...prevState, 4000]);
     }
   }, []);
 

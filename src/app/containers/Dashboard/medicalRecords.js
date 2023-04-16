@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Card, CardBody, Col, Row, Button } from "reactstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import * as operation from "./action";
@@ -6,9 +6,12 @@ import * as operation from "./action";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { fetchAllMedicalRecords } from "./action";
 import { useDispatch, useSelector } from "react-redux";
+import ReactToPrint from "react-to-print";
 
 const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
   const dispatch = useDispatch();
+  const reportRef = useRef();
+
   const { medicalRecords } = useSelector(
     (state) => state.rehabilitationDetails
   );
@@ -46,7 +49,149 @@ const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
       formatter: (cell, row, rowIndex) => {
         return (
           <div className="d-flex justify-content-center">
-            <i className="fa-solid fa-print fa-xs mx-2 tableAction"></i>
+            <ReactToPrint
+              trigger={() => (
+                <i className="fa-solid fa-print fa-xs mx-2 tableAction"></i>
+              )}
+              content={() => reportRef.current}
+            />
+            <div className="d-none">
+              <div ref={reportRef} className="text-black mx-5">
+                <Row className="mb-5 mt-3 text-center">
+                  <Col>
+                    <span className="printTitle">
+                      Lower Limb Rehabilitation Report
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mb-3 mt-3">
+                  <Col>
+                    <span className="reportSubTitle">Patient Details:</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Name:{" "}
+                      {row.personalDetails.firstName +
+                        " " +
+                        row.personalDetails.lastName}
+                    </span>
+                  </Col>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Gender: {row.personalDetails.gender}
+                    </span>
+                  </Col>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Age: {row.personalDetails.age}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      DOB: {row.personalDetails.dob}
+                    </span>
+                  </Col>
+                  <Col xs="5" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Address: {row.personalDetails.address}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Mobile No.: {row.personalDetails.mobileNumber}
+                    </span>
+                  </Col>
+                  <Col xs="5" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Alternate Mobile No.:{" "}
+                      {row.personalDetails.alternateMobileNumber}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Height: {row.healthDetails.height}
+                    </span>
+                  </Col>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Weight: {row.healthDetails.weight}
+                    </span>
+                  </Col>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Blood Pressure: {row.healthDetails.bloodPressure}
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mb-3 mt-3">
+                  <Col>
+                    <span className="reportSubTitle">
+                      Region of Injury: {row.healthDetails.regionOfInjury}
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mb-3 mt-3">
+                  <Col>
+                    <span className="reportSubTitle">
+                      Cause of Injury: {row.healthDetails.causeOfInjury}
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mb-3 mt-3">
+                  <Col>
+                    <span className="reportSubTitle">
+                      Patient's Kin Details:
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Name:{" "}
+                      {row.kinDetails.firstName + " " + row.kinDetails.lastName}
+                    </span>
+                  </Col>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Gender: {row.kinDetails.gender}
+                    </span>
+                  </Col>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Age: {row.kinDetails.age}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="8" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Address: {row.kinDetails.address}
+                    </span>
+                  </Col>
+                  <Col xs="4" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Mobile No.: {row.kinDetails.mobileNumber}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="5" className="d-flex flex-column">
+                    <span className="reportWord">
+                      Alternate Mobile No.:{" "}
+                      {row.kinDetails.alternateMobileNumber}
+                    </span>
+                  </Col>
+                </Row>
+              </div>
+            </div>
             <i
               className="fa-solid fa-pen fa-xs mx-2 text-primary tableAction"
               onClick={() => {

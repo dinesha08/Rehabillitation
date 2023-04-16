@@ -1,25 +1,36 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import ReactToPrint from "react-to-print";
 import { Col, Row, Card, CardBody } from "reactstrap";
 
 const ProfileSection = () => {
+  const reportRef = useRef();
+
   const { patientDetails } = useSelector(
     (state) => state.rehabilitationDetails
   );
   const [personalDetails, setPersonalDetails] = useState({});
+  const [kinDetails, setKinDetails] = useState({});
   const [healthDetails, setHealthDetails] = useState({});
 
   useEffect(() => {
     setPersonalDetails(patientDetails.personalDetails);
+    setKinDetails(patientDetails.kinDetails);
     setHealthDetails(patientDetails.healthDetails);
   }, [patientDetails]);
 
   return (
     <Card className="card mx-5">
       <CardBody>
-        <i className="fa-solid fa-print position-absolute top-0 end-0 m-4 printBtn"></i>
+        <ReactToPrint
+          trigger={() => (
+            <i className="fa-solid fa-print position-absolute top-0 end-0 m-4 printBtn"></i>
+          )}
+          content={() => reportRef.current}
+        />
+
         <Row className="d-flex justify-content-center align-items-center">
           <Col className="mx-5 d-flex justify-content-center align-items-center">
             <Col xs="3" className="mx-4 my-2 text-center">
@@ -33,7 +44,7 @@ const ProfileSection = () => {
               <Row>
                 <Col>
                   <h4>
-                    {personalDetails.firstName || "N/A"}{" "}
+                    {personalDetails.firstName || "N/A"}
                     {personalDetails.lastName}
                   </h4>
                 </Col>
@@ -81,6 +92,128 @@ const ProfileSection = () => {
             </Col>
           </Col>
         </Row>
+        <div className="d-none">
+          <div ref={reportRef} className="text-black mx-5">
+            <Row className="mb-5 mt-3 text-center">
+              <Col>
+                <span className="printTitle">
+                  Lower Limb Rehabilitation Report
+                </span>
+              </Col>
+            </Row>
+            <Row className="mb-3 mt-3">
+              <Col>
+                <span className="reportSubTitle">Patient Details:</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Name:{" "}
+                  {personalDetails.firstName + " " + personalDetails.lastName}
+                </span>
+              </Col>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Gender: {personalDetails.gender}
+                </span>
+              </Col>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">Age: {personalDetails.age}</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">DOB: {personalDetails.dob}</span>
+              </Col>
+              <Col xs="5" className="d-flex flex-column">
+                <span className="reportWord">
+                  Address: {personalDetails.address}
+                </span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Mobile No.: {personalDetails.mobileNumber}
+                </span>
+              </Col>
+              <Col xs="5" className="d-flex flex-column">
+                <span className="reportWord">
+                  Alternate Mobile No.: {personalDetails.alternateMobileNumber}
+                </span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Height: {healthDetails.height}
+                </span>
+              </Col>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Weight: {healthDetails.weight}
+                </span>
+              </Col>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Blood Pressure: {healthDetails.bloodPressure}
+                </span>
+              </Col>
+            </Row>
+            <Row className="mb-3 mt-3">
+              <Col>
+                <span className="reportSubTitle">
+                  Region of Injury: {healthDetails.regionOfInjury}
+                </span>
+              </Col>
+            </Row>
+            <Row className="mb-3 mt-3">
+              <Col>
+                <span className="reportSubTitle">
+                  Cause of Injury: {healthDetails.causeOfInjury}
+                </span>
+              </Col>
+            </Row>
+            <Row className="mb-3 mt-3">
+              <Col>
+                <span className="reportSubTitle">Patient's Kin Details:</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Name: {kinDetails.firstName + " " + kinDetails.lastName}
+                </span>
+              </Col>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">Gender: {kinDetails.gender}</span>
+              </Col>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">Age: {kinDetails.age}</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="8" className="d-flex flex-column">
+                <span className="reportWord">
+                  Address: {kinDetails.address}
+                </span>
+              </Col>
+              <Col xs="4" className="d-flex flex-column">
+                <span className="reportWord">
+                  Mobile No.: {kinDetails.mobileNumber}
+                </span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="5" className="d-flex flex-column">
+                <span className="reportWord">
+                  Alternate Mobile No.: {kinDetails.alternateMobileNumber}
+                </span>
+              </Col>
+            </Row>
+          </div>
+        </div>
       </CardBody>
     </Card>
   );
