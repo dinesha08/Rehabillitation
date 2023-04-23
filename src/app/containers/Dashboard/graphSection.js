@@ -14,8 +14,11 @@ import {
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
+import { useToast } from "@hanseo0507/react-toast";
 
 const GraphSection = ({ data }) => {
+  const { toast } = useToast();
+
   const [dropdownOpenForAcceleration, setDropdownOpenForAcceleration] =
     useState(false);
   const [dropdownOpenForBrake, setDropdownOpenForBrake] = useState(false);
@@ -40,7 +43,14 @@ const GraphSection = ({ data }) => {
         ...prevState,
         data.acceleration,
       ]);
-    } // eslint-disable-next-line
+    }
+    data.acceleration > loadCellforAcceleration &&
+      toast({
+        emoji: "🦶",
+        emojiBackground: "#8f9ac2",
+        text: "Reached Milestone",
+      });
+    // eslint-disable-next-line
   }, [data.acceleration]);
 
   useEffect(() => {
@@ -49,7 +59,14 @@ const GraphSection = ({ data }) => {
       setBrakeGraphData((prevState) => [...prevState, data.brake]);
     } else {
       setBrakeGraphData((prevState) => [...prevState, data.brake]);
-    } // eslint-disable-next-line
+    }
+    data.brake > loadCellforBrake &&
+      toast({
+        emoji: "🦶",
+        emojiBackground: "#8f9ac2",
+        text: "Reached Milestone",
+      });
+    // eslint-disable-next-line
   }, [data.brake]);
 
   useEffect(() => {

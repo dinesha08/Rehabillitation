@@ -26,7 +26,6 @@ const PersonalDetailsInput = ({
   );
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [gender, setGender] = useState();
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -37,7 +36,7 @@ const PersonalDetailsInput = ({
   const initialValues = {
     firstName: get(patientDetails, "personalDetails.firstName", ""),
     lastName: get(patientDetails, "personalDetails.lastName", ""),
-    gender: get(patientDetails, "personalDetails.gender", gender),
+    gender: get(patientDetails, "personalDetails.gender", ""),
     age: get(patientDetails, "personalDetails.age", ""),
     dob: get(patientDetails, "personalDetails.dob", ""),
     address: get(patientDetails, "personalDetails.address", ""),
@@ -48,6 +47,8 @@ const PersonalDetailsInput = ({
       ""
     ),
   };
+
+  const [gender, setGender] = useState(initialValues.gender);
 
   return (
     <Form
@@ -112,7 +113,7 @@ const PersonalDetailsInput = ({
                 name="gender"
                 placeholder="Gender"
                 className="input"
-                defaultValue={initialValues.gender}
+                value={gender}
                 onChange={(e) => setGender(e.target.value)}
               />
             </Col>

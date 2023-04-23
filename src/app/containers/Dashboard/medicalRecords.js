@@ -7,8 +7,14 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { fetchAllMedicalRecords } from "./action";
 import { useDispatch, useSelector } from "react-redux";
 import ReactToPrint from "react-to-print";
+import { get } from "lodash";
 
-const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
+const MedicalRecords = ({
+  setInput,
+  setPatientDetail,
+  setEdit,
+  setStartTime,
+}) => {
   const dispatch = useDispatch();
   const reportRef = useRef();
 
@@ -66,6 +72,20 @@ const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
                 </Row>
                 <Row className="mb-3 mt-3">
                   <Col>
+                    <span className="reportSubTitle">Date: </span>
+                    <span className="reportWord">
+                      {get(row, "generalInfo.currentDate", "")}
+                    </span>
+                  </Col>
+                  <Col className="end-0">
+                    <span className="reportSubTitle">Session Timing: </span>
+                    <span className="reportWord">
+                      {get(row, "generalInfo.sessionTime", "")}
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mb-3 mt-3">
+                  <Col>
                     <span className="reportSubTitle">Patient Details:</span>
                   </Col>
                 </Row>
@@ -95,22 +115,22 @@ const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
                       DOB: {row.personalDetails.dob}
                     </span>
                   </Col>
-                  <Col xs="5" className="d-flex flex-column">
-                    <span className="reportWord">
-                      Address: {row.personalDetails.address}
-                    </span>
-                  </Col>
-                </Row>
-                <Row>
                   <Col xs="4" className="d-flex flex-column">
                     <span className="reportWord">
                       Mobile No.: {row.personalDetails.mobileNumber}
                     </span>
                   </Col>
-                  <Col xs="5" className="d-flex flex-column">
+                  <Col xs="4" className="d-flex flex-column">
                     <span className="reportWord">
                       Alternate Mobile No.:{" "}
                       {row.personalDetails.alternateMobileNumber}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="d-flex flex-column">
+                    <span className="reportWord">
+                      Address: {row.personalDetails.address}
                     </span>
                   </Col>
                 </Row>
@@ -171,22 +191,22 @@ const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs="8" className="d-flex flex-column">
-                    <span className="reportWord">
-                      Address: {row.kinDetails.address}
-                    </span>
-                  </Col>
                   <Col xs="4" className="d-flex flex-column">
                     <span className="reportWord">
                       Mobile No.: {row.kinDetails.mobileNumber}
                     </span>
                   </Col>
-                </Row>
-                <Row>
-                  <Col xs="5" className="d-flex flex-column">
+                  <Col xs="4" className="d-flex flex-column">
                     <span className="reportWord">
                       Alternate Mobile No.:{" "}
                       {row.kinDetails.alternateMobileNumber}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="d-flex flex-column">
+                    <span className="reportWord">
+                      Address: {row.kinDetails.address}
                     </span>
                   </Col>
                 </Row>
@@ -275,6 +295,7 @@ const MedicalRecords = ({ setInput, setPatientDetail, setEdit }) => {
                 onClick={() => {
                   setInput(true);
                   setPatientDetail(true);
+                  setStartTime(new Date());
                 }}
               >
                 + Add Medical Record

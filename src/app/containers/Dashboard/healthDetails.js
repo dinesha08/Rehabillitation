@@ -10,6 +10,7 @@ const HealthDetailsInput = ({
   setKinDetails,
   setLoader,
   setBlankScreen,
+  setEndTime,
 }) => {
   const dispatch = useDispatch();
   const { patientDetails } = useSelector(

@@ -15,6 +15,8 @@ const Dashboard = () => {
   const [blankScreen, setBlankScreen] = useState(false);
   const [input, setInput] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
 
   useEffect(() => {
     axios
@@ -69,6 +71,9 @@ const Dashboard = () => {
                   setInput={setInput}
                   setEdit={setEdit}
                   edit={edit}
+                  setEndTime={setEndTime}
+                  startTime={startTime}
+                  endTime={endTime}
                 />
               )}
             </>
@@ -77,6 +82,7 @@ const Dashboard = () => {
               setInput={setInput}
               setPatientDetail={setPatientDetail}
               setEdit={setEdit}
+              setStartTime={setStartTime}
             />
           )}
         </>
