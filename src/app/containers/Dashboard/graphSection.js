@@ -44,7 +44,7 @@ const GraphSection = ({ data }) => {
         data.acceleration,
       ]);
     }
-    data.acceleration > loadCellforAcceleration &&
+    data.acceleration >= loadCellforAcceleration &&
       toast({
         emoji: "🦶",
         emojiBackground: "#8f9ac2",
@@ -60,7 +60,7 @@ const GraphSection = ({ data }) => {
     } else {
       setBrakeGraphData((prevState) => [...prevState, data.brake]);
     }
-    data.brake > loadCellforBrake &&
+    data.brake >= loadCellforBrake &&
       toast({
         emoji: "🦶",
         emojiBackground: "#8f9ac2",

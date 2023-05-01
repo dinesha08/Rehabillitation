@@ -49,7 +49,6 @@ const ProfileSection = ({
 
   return (
     <Card className="card mx-5">
-      {console.log({ edit })}
       <CardBody>
         <ReactToPrint
           trigger={() => (

@@ -23,7 +23,6 @@ const Dashboard = () => {
       .get("http://localhost:5000/data")
       .then((response) => {
         setData(response.data);
-        console.log(data);
       })
       .catch((error) => {
         console.log(error);
