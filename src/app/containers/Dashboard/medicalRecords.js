@@ -311,21 +311,25 @@ const MedicalRecords = ({
               </Button>
             </Col>
           </Row>
-          <Row className="mt-5 mx-5">
-            <Col>
-              <BootstrapTable
-                bootstrap4
-                bordered={false}
-                keyField="id"
-                data={medicalRecords}
-                columns={columns}
-                headerClasses="table-header"
-                rowClasses="table-row"
-                bodyClasses="table-body"
-                classes="table"
-                noDataIndication="No Medical Records Found"
-                expandRow={expandRow}
-              />
+          <Row className="mt-5 mx-5 d-flex justify-content-center">
+            <Col className="d-flex justify-content-center">
+              {medicalRecords ? (
+                <BootstrapTable
+                  bootstrap4
+                  bordered={false}
+                  keyField="id"
+                  data={medicalRecords}
+                  columns={columns}
+                  headerClasses="table-header"
+                  rowClasses="table-row"
+                  bodyClasses="table-body"
+                  classes="table"
+                  noDataIndication="No Medical Records Found"
+                  expandRow={expandRow}
+                />
+              ) : (
+                "No Medical Records Found"
+              )}
             </Col>
           </Row>
         </CardBody>
