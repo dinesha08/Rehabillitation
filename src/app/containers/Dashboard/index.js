@@ -17,6 +17,18 @@ const Dashboard = () => {
   const [edit, setEdit] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
+  const [stageAcceleration, setStageAcceleration] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
+  const [stageBrake, setStageBrake] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
 
   useEffect(() => {
     axios
@@ -73,6 +85,10 @@ const Dashboard = () => {
                   setEndTime={setEndTime}
                   startTime={startTime}
                   endTime={endTime}
+                  setStageAcceleration={setStageAcceleration}
+                  setStageBrake={setStageBrake}
+                  stageAcceleration={stageAcceleration}
+                  stageBrake={stageBrake}
                 />
               )}
             </>
@@ -82,6 +98,10 @@ const Dashboard = () => {
               setPatientDetail={setPatientDetail}
               setEdit={setEdit}
               setStartTime={setStartTime}
+              setStageAcceleration={setStageAcceleration}
+              setStageBrake={setStageBrake}
+              stageAcceleration={stageAcceleration}
+              stageBrake={stageBrake}
             />
           )}
         </>

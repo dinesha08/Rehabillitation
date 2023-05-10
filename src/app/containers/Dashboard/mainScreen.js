@@ -13,6 +13,10 @@ const MainScreen = ({
   setEndTime,
   startTime,
   endTime,
+  setStageAcceleration,
+  setStageBrake,
+  stageAcceleration,
+  stageBrake,
 }) => {
   const dispatch = useDispatch();
   const { patientDetails } = useSelector(
@@ -21,18 +25,6 @@ const MainScreen = ({
 
   const [sessionTime, setSessionTime] = useState();
   const [currentDate, setCurrentDate] = useState(moment().format("DD-MM-YYYY"));
-  const [stageAcceleration, setStageAcceleration] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  });
-  const [stageBrake, setStageBrake] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  });
 
   useEffect(() => {
     if (!edit) {
@@ -51,10 +43,16 @@ const MainScreen = ({
         sessionTime={sessionTime}
         setSessionTime={setSessionTime}
         currentDate={currentDate}
+        stageAcceleration={stageAcceleration}
+        stageBrake={stageBrake}
+      />
+      <GraphSection
+        data={data}
         setStageAcceleration={setStageAcceleration}
         setStageBrake={setStageBrake}
+        stageAcceleration={stageAcceleration}
+        stageBrake={stageBrake}
       />
-      <GraphSection data={data} />
       <div className="d-flex flex-row-reverse">
         <button
           type="submit"
@@ -67,6 +65,8 @@ const MainScreen = ({
                   generalInfo: {
                     currentDate,
                     sessionTime,
+                    stageAcceleration,
+                    stageBrake,
                   },
                 })
               );

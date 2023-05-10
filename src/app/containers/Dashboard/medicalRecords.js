@@ -7,13 +7,15 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { fetchAllMedicalRecords } from "./action";
 import { useDispatch, useSelector } from "react-redux";
 import ReactToPrint from "react-to-print";
-import { get } from "lodash";
+import { get, forEach } from "lodash";
 
 const MedicalRecords = ({
   setInput,
   setPatientDetail,
   setEdit,
   setStartTime,
+  stageAcceleration,
+  stageBrake,
 }) => {
   const dispatch = useDispatch();
   const reportRef = useRef();
@@ -207,6 +209,27 @@ const MedicalRecords = ({
                   <Col className="d-flex flex-column">
                     <span className="reportWord">
                       Address: {row.kinDetails.address}
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mb-3 mt-3">
+                  <Col>
+                    <span className="reportSubTitle">Stages Reached: </span>
+                    <span className="reportWord">
+                      Acceleration -{" "}
+                      {forEach(stageAcceleration, (value, key) => {
+                        if (value) {
+                          return "*";
+                        }
+                      })}
+                    </span>
+                    <span className="reportWord">
+                      Brake -{" "}
+                      {forEach(stageBrake, (value, key) => {
+                        if (value) {
+                          return "*";
+                        }
+                      })}
                     </span>
                   </Col>
                 </Row>

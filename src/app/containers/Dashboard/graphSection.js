@@ -16,7 +16,13 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import { useToast } from "@hanseo0507/react-toast";
 
-const GraphSection = ({ data }) => {
+const GraphSection = ({
+  data,
+  setStageAcceleration,
+  setStageBrake,
+  stageAcceleration,
+  stageBrake,
+}) => {
   const { toast } = useToast();
 
   const [dropdownOpenForAcceleration, setDropdownOpenForAcceleration] =
@@ -46,7 +52,30 @@ const GraphSection = ({ data }) => {
     }
 
     if (data.acceleration >= loadCellforAcceleration) {
-      setStageAcceleration1(true);
+      if (loadCellforAcceleration >= 3000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          1: true,
+        });
+      }
+      if (loadCellforAcceleration >= 5000 && loadCellforAcceleration < 7000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          2: true,
+        });
+      }
+      if (loadCellforAcceleration >= 7000 && loadCellforAcceleration < 10000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          3: true,
+        });
+      }
+      if (loadCellforAcceleration >= 10000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          4: true,
+        });
+      }
       toast({
         emoji: "🦶",
         emojiBackground: "#8f9ac2",
@@ -63,12 +92,37 @@ const GraphSection = ({ data }) => {
     } else {
       setBrakeGraphData((prevState) => [...prevState, data.brake]);
     }
-    data.brake >= loadCellforBrake &&
+    if (data.brake >= loadCellforBrake) {
+      if (loadCellforBrake >= 3000) {
+        setStageBrake({
+          ...stageBrake,
+          1: true,
+        });
+      }
+      if (loadCellforBrake >= 5000 && loadCellforBrake < 7000) {
+        setStageBrake({
+          ...stageBrake,
+          2: true,
+        });
+      }
+      if (loadCellforBrake >= 7000 && loadCellforBrake < 10000) {
+        setStageBrake({
+          ...stageBrake,
+          3: true,
+        });
+      }
+      if (loadCellforBrake >= 10000) {
+        setStageBrake({
+          ...stageBrake,
+          4: true,
+        });
+      }
       toast({
         emoji: "🦶",
         emojiBackground: "#8f9ac2",
         text: "Reached Milestone",
       });
+    }
     // eslint-disable-next-line
   }, [data.brake]);
 
