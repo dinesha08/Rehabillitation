@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import { forEach, get } from "lodash";
 import React, { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -14,6 +14,8 @@ const ProfileSection = ({
   sessionTime,
   setSessionTime,
   currentDate,
+  setStageAcceleration,
+  setStageBrake,
 }) => {
   const reportRef = useRef();
 
@@ -249,6 +251,13 @@ const ProfileSection = ({
                 <span className="reportWord">
                   Address: {kinDetails.address}
                 </span>
+              </Col>
+            </Row>
+            <Row className="mb-3 mt-3">
+              <Col>
+                <span className="reportSubTitle">Stages Reached: </span>
+                <span className="reportWord">Acceleration - {forEach}</span>
+                <span className="reportWord">Brake -</span>
               </Col>
             </Row>
           </div>

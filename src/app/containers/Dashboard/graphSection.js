@@ -44,12 +44,15 @@ const GraphSection = ({ data }) => {
         data.acceleration,
       ]);
     }
-    data.acceleration >= loadCellforAcceleration &&
+
+    if (data.acceleration >= loadCellforAcceleration) {
+      setStageAcceleration1(true);
       toast({
         emoji: "🦶",
         emojiBackground: "#8f9ac2",
         text: "Reached Milestone",
       });
+    }
     // eslint-disable-next-line
   }, [data.acceleration]);
 

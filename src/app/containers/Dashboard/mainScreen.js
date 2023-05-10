@@ -21,6 +21,18 @@ const MainScreen = ({
 
   const [sessionTime, setSessionTime] = useState();
   const [currentDate, setCurrentDate] = useState(moment().format("DD-MM-YYYY"));
+  const [stageAcceleration, setStageAcceleration] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
+  const [stageBrake, setStageBrake] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
 
   useEffect(() => {
     if (!edit) {
@@ -39,6 +51,8 @@ const MainScreen = ({
         sessionTime={sessionTime}
         setSessionTime={setSessionTime}
         currentDate={currentDate}
+        setStageAcceleration={setStageAcceleration}
+        setStageBrake={setStageBrake}
       />
       <GraphSection data={data} />
       <div className="d-flex flex-row-reverse">
