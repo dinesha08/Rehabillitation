@@ -212,12 +212,12 @@ const MedicalRecords = ({
                     </span>
                   </Col>
                 </Row>
-                <Row className="mb-3 mt-3">
+                {/* <Row className="mb-3 mt-3">
                   <Col>
                     <span className="reportSubTitle">Stages Reached: </span>
                     <span className="reportWord">
                       Acceleration -{" "}
-                      {forEach(stageAcceleration, (value, key) => {
+                      {Object.entries(stageAcceleration, (value, key) => {
                         if (value) {
                           return "*";
                         }
@@ -225,14 +225,14 @@ const MedicalRecords = ({
                     </span>
                     <span className="reportWord">
                       Brake -{" "}
-                      {forEach(stageBrake, (value, key) => {
+                      {Object.entries(stageBrake, (value, key) => {
                         if (value) {
                           return "*";
                         }
                       })}
                     </span>
                   </Col>
-                </Row>
+                </Row> */}
               </div>
             </div>
             <i
