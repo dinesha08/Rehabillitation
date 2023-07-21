@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Input, Label, Row, Form } from "reactstrap";
 import { fetchPatientDetails } from "./dashboardSlice";
+import { get, random } from "lodash";
 
 const HealthDetailsInput = ({
   setHealthDetails,
@@ -9,20 +10,31 @@ const HealthDetailsInput = ({
   setKinDetails,
   setLoader,
   setBlankScreen,
+  setEndTime,
 }) => {
   const dispatch = useDispatch();
   const { patientDetails } = useSelector(
     (state) => state.rehabilitationDetails
   );
 
+  const initialValues = {
+    height: get(patientDetails, "healthDetails.height", ""),
+    weight: get(patientDetails, "healthDetails.weight", ""),
+    bloodPressure: get(patientDetails, "healthDetails.bloodPressure", ""),
+    regionOfInjury: get(patientDetails, "healthDetails.regionOfInjury", ""),
+    causeOfInjury: get(patientDetails, "healthDetails.causeOfInjury", ""),
+  };
+
   return (
     <>
       <Form
+        initialvalues={initialValues}
         onSubmit={(e) => {
           e.preventDefault();
           dispatch(
             fetchPatientDetails({
               ...patientDetails,
+              id: patientDetails.id || random(100000, 999999),
               healthDetails: {
                 height: e.target.height.value,
                 weight: e.target.weight.value,
@@ -52,12 +64,13 @@ const HealthDetailsInput = ({
         </Row>
         <Row>
           <Col xs="6">
-            <Label className="label">Height (m)</Label>
+            <Label className="label">Height (ft)</Label>
             <Input
               label="Height"
               name="height"
               placeholder="Height"
               className="input"
+              defaultValue={initialValues.height}
             />
           </Col>
           <Col xs="6">
@@ -67,6 +80,7 @@ const HealthDetailsInput = ({
               name="weight"
               placeholder="Weight"
               className="input"
+              defaultValue={initialValues.weight}
             />
           </Col>
         </Row>
@@ -78,6 +92,7 @@ const HealthDetailsInput = ({
               name="bloodPressure"
               placeholder="Blood Pressure"
               className="input"
+              defaultValue={initialValues.bloodPressure}
             />
           </Col>
         </Row>
@@ -90,6 +105,7 @@ const HealthDetailsInput = ({
               placeholder="Region of Injury"
               className="textArea"
               type="textarea"
+              defaultValue={initialValues.regionOfInjury}
             />
           </Col>
           <Col xs="6">
@@ -100,6 +116,7 @@ const HealthDetailsInput = ({
               placeholder="Cause of Injury"
               className="textArea"
               type="textarea"
+              defaultValue={initialValues.causeOfInjury}
             />
           </Col>
         </Row>
@@ -107,18 +124,7 @@ const HealthDetailsInput = ({
           <button type="submit" className="cssbuttons-io-button mt-3 mb-3 mx-2">
             Save
             <div className="icon">
-              <svg
-                height="24"
-                width="24"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M0 0h24v24H0z" fill="none"></path>
-                <path
-                  d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                  fill="currentColor"
-                ></path>
-              </svg>
+              <i className="fa-solid fa-floppy-disk text-black"></i>
             </div>
           </button>
         </div>

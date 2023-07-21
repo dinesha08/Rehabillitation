@@ -6,26 +6,35 @@ import PatientDetailsInput from "./patientDetailsInput";
 import "./dashboardStyle.scss";
 import Loader from "../../components/Loader";
 import MainScreen from "./mainScreen";
+import MedicalRecords from "./medicalRecords";
 
 const Dashboard = () => {
-  const [data, setData] = useState([]);
-  const [accelerataion, setAcceleration] = useState([]);
-  const [brake, setBrake] = useState([]);
-  const [patientDetail, setPatientDetail] = useState(true);
+  const [data, setData] = useState("");
+  const [patientDetail, setPatientDetail] = useState(false);
   const [loader, setLoader] = useState(false);
   const [blankScreen, setBlankScreen] = useState(false);
+  const [input, setInput] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [stageAcceleration, setStageAcceleration] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
+  const [stageBrake, setStageBrake] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/data")
       .then((response) => {
         setData(response.data);
-        data.forEach((item) => {
-          setAcceleration(item.split(",")[0]);
-          const remove = item.split(",")[1];
-          setBrake(remove.replace("\r", ""));
-        });
-        console.log({ Acceleration: accelerataion, Brake: brake });
       })
       .catch((error) => {
         console.log(error);
@@ -48,25 +57,52 @@ const Dashboard = () => {
               <h1 className="title my-4">Lower Limb Rehabilitation</h1>
             </Col>
           </Row>
-
-          {patientDetail ? (
+          {input ? (
             <>
-              <Card className="card mx-5">
-                <CardBody>
-                  <Row>
-                    <Col className="mx-5">
-                      <PatientDetailsInput
-                        setPatientDetail={setPatientDetail}
-                        setLoader={setLoader}
-                        setBlankScreen={setBlankScreen}
-                      />
-                    </Col>
-                  </Row>
-                </CardBody>
-              </Card>
+              {patientDetail ? (
+                <>
+                  <Card className="card mx-5">
+                    <CardBody>
+                      <Row>
+                        <Col className="mx-5">
+                          <PatientDetailsInput
+                            setPatientDetail={setPatientDetail}
+                            setLoader={setLoader}
+                            setBlankScreen={setBlankScreen}
+                            setInput={setInput}
+                          />
+                        </Col>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </>
+              ) : (
+                <MainScreen
+                  data={data}
+                  setInput={setInput}
+                  setEdit={setEdit}
+                  edit={edit}
+                  setEndTime={setEndTime}
+                  startTime={startTime}
+                  endTime={endTime}
+                  setStageAcceleration={setStageAcceleration}
+                  setStageBrake={setStageBrake}
+                  stageAcceleration={stageAcceleration}
+                  stageBrake={stageBrake}
+                />
+              )}
             </>
           ) : (
-            <MainScreen accelerataion={accelerataion} brake={brake} />
+            <MedicalRecords
+              setInput={setInput}
+              setPatientDetail={setPatientDetail}
+              setEdit={setEdit}
+              setStartTime={setStartTime}
+              setStageAcceleration={setStageAcceleration}
+              setStageBrake={setStageBrake}
+              stageAcceleration={stageAcceleration}
+              stageBrake={stageBrake}
+            />
           )}
         </>
       )}

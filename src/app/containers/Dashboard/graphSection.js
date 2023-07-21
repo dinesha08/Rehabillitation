@@ -14,20 +14,122 @@ import {
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
+import { useToast } from "@hanseo0507/react-toast";
 
-const GraphSection = ({ accelerataion, brake }) => {
+const GraphSection = ({
+  data,
+  setStageAcceleration,
+  setStageBrake,
+  stageAcceleration,
+  stageBrake,
+}) => {
+  const { toast } = useToast();
+
   const [dropdownOpenForAcceleration, setDropdownOpenForAcceleration] =
     useState(false);
   const [dropdownOpenForBrake, setDropdownOpenForBrake] = useState(false);
-  const [loadCellforAcceleration, setLoadCellForAcceleration] = useState(2000);
-  const [loadCellforBrake, setLoadCellForBrake] = useState(2000);
+  const [loadCellforAcceleration, setLoadCellForAcceleration] = useState(3000);
+  const [loadCellforBrake, setLoadCellForBrake] = useState(4000);
   const [accelerataionThreshold, setAccelerataionThreshold] = useState([]);
   const [brakeThreshold, setBrakeThreshold] = useState([]);
+  const [accelerationGraphData, setAccelerationGraphData] = useState(
+    new Array(101).fill(0)
+  );
+  const [brakeGraphData, setBrakeGraphData] = useState(new Array(101).fill(0));
 
   useEffect(() => {
-    for (let i = 0; i < 10; i++) {
-      setAccelerataionThreshold((prevState) => [...prevState, 2000]);
-      setBrakeThreshold((prevState) => [...prevState, 2000]);
+    if (accelerationGraphData.length >= 101) {
+      accelerationGraphData.splice(0, 1);
+      setAccelerationGraphData((prevState) => [
+        ...prevState,
+        data.acceleration,
+      ]);
+    } else {
+      setAccelerationGraphData((prevState) => [
+        ...prevState,
+        data.acceleration,
+      ]);
+    }
+
+    if (data.acceleration >= loadCellforAcceleration) {
+      if (loadCellforAcceleration >= 3000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          1: true,
+        });
+      }
+      if (loadCellforAcceleration >= 5000 && loadCellforAcceleration < 7000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          2: true,
+        });
+      }
+      if (loadCellforAcceleration >= 7000 && loadCellforAcceleration < 10000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          3: true,
+        });
+      }
+      if (loadCellforAcceleration >= 10000) {
+        setStageAcceleration({
+          ...stageAcceleration,
+          4: true,
+        });
+      }
+      toast({
+        emoji: "🦶",
+        emojiBackground: "#8f9ac2",
+        text: "Reached Milestone",
+      });
+    }
+    // eslint-disable-next-line
+  }, [data.acceleration]);
+
+  useEffect(() => {
+    if (brakeGraphData.length >= 101) {
+      brakeGraphData.splice(0, 1);
+      setBrakeGraphData((prevState) => [...prevState, data.brake]);
+    } else {
+      setBrakeGraphData((prevState) => [...prevState, data.brake]);
+    }
+    if (data.brake >= loadCellforBrake) {
+      if (loadCellforBrake >= 3000) {
+        setStageBrake({
+          ...stageBrake,
+          1: true,
+        });
+      }
+      if (loadCellforBrake >= 5000 && loadCellforBrake < 7000) {
+        setStageBrake({
+          ...stageBrake,
+          2: true,
+        });
+      }
+      if (loadCellforBrake >= 7000 && loadCellforBrake < 10000) {
+        setStageBrake({
+          ...stageBrake,
+          3: true,
+        });
+      }
+      if (loadCellforBrake >= 10000) {
+        setStageBrake({
+          ...stageBrake,
+          4: true,
+        });
+      }
+      toast({
+        emoji: "🦶",
+        emojiBackground: "#8f9ac2",
+        text: "Reached Milestone",
+      });
+    }
+    // eslint-disable-next-line
+  }, [data.brake]);
+
+  useEffect(() => {
+    for (let i = 0; i < 100; i++) {
+      setAccelerataionThreshold((prevState) => [...prevState, 3000]);
+      setBrakeThreshold((prevState) => [...prevState, 4000]);
     }
   }, []);
 
@@ -39,33 +141,33 @@ const GraphSection = ({ accelerataion, brake }) => {
   const handleLoadCellForAcceleration = (e) => {
     setAccelerataionThreshold([]);
     if (e.target.innerText === "Stage 1") {
-      setLoadCellForAcceleration(2000);
-      for (let i = 0; i < 10; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 2000]);
+      setLoadCellForAcceleration(3000);
+      for (let i = 0; i < 100; i++) {
+        setAccelerataionThreshold((prevState) => [...prevState, 3000]);
       }
     }
     if (e.target.innerText === "Stage 2") {
-      setLoadCellForAcceleration(4000);
-      for (let i = 0; i < 10; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 4000]);
+      setLoadCellForAcceleration(5000);
+      for (let i = 0; i < 100; i++) {
+        setAccelerataionThreshold((prevState) => [...prevState, 5000]);
       }
     }
     if (e.target.innerText === "Stage 3") {
-      setLoadCellForAcceleration(6000);
-      for (let i = 0; i < 10; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 6000]);
+      setLoadCellForAcceleration(7000);
+      for (let i = 0; i < 100; i++) {
+        setAccelerataionThreshold((prevState) => [...prevState, 7000]);
       }
     }
     if (e.target.innerText === "Stage 4") {
-      setLoadCellForAcceleration(8000);
-      for (let i = 0; i < 10; i++) {
-        setAccelerataionThreshold((prevState) => [...prevState, 8000]);
+      setLoadCellForAcceleration(10000);
+      for (let i = 0; i < 100; i++) {
+        setAccelerataionThreshold((prevState) => [...prevState, 10000]);
       }
     }
     if (e.target.value) {
       setAccelerataionThreshold([]);
       setLoadCellForAcceleration(e.target.value);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         setAccelerataionThreshold((prevState) => [
           ...prevState,
           e.target.value,
@@ -76,45 +178,52 @@ const GraphSection = ({ accelerataion, brake }) => {
 
   const handleLoadCellForBrake = (e) => {
     setBrakeThreshold([]);
+
     if (e.target.innerText === "Stage 1") {
-      setLoadCellForBrake(2000);
-      for (let i = 0; i < 10; i++) {
-        setBrakeThreshold((prevState) => [...prevState, 2000]);
-      }
-    }
-    if (e.target.innerText === "Stage 2") {
       setLoadCellForBrake(4000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 4000]);
       }
     }
-    if (e.target.innerText === "Stage 3") {
+    if (e.target.innerText === "Stage 2") {
       setLoadCellForBrake(6000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 6000]);
       }
     }
-    if (e.target.innerText === "Stage 4") {
+    if (e.target.innerText === "Stage 3") {
       setLoadCellForBrake(8000);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, 8000]);
+      }
+    }
+    if (e.target.innerText === "Stage 4") {
+      setLoadCellForBrake(10000);
+      for (let i = 0; i < 100; i++) {
+        setBrakeThreshold((prevState) => [...prevState, 10000]);
+      }
+    }
+    if (e.target.innerText === "Stage 5") {
+      setLoadCellForBrake(12000);
+      for (let i = 0; i < 100; i++) {
+        setBrakeThreshold((prevState) => [...prevState, 12000]);
       }
     }
     if (e.target.value) {
       setBrakeThreshold([]);
       setLoadCellForBrake(e.target.value);
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         setBrakeThreshold((prevState) => [...prevState, e.target.value]);
       }
     }
   };
 
-  const accelerataionData = {
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  const accelerationData = {
+    labels: Array.from({ length: 100 }, (_, i) => i + 1),
     datasets: [
       {
         label: "Acceleration",
-        data: [2000, 1500, 3000, 6000, 4500, 3000, 1000, 4000, 5500, 6000],
+        data: accelerationGraphData,
         backgroundColor: ["rgba(0, 197, 167, 0.2)"],
         borderColor: ["rgb(0, 197, 167)"],
         borderWidth: 1,
@@ -133,12 +242,26 @@ const GraphSection = ({ accelerataion, brake }) => {
     ],
   };
 
+  const accelerationConfig = {
+    type: "line",
+    data: accelerationData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMin: 0,
+          suggestedMax: 10000,
+        },
+      },
+    },
+  };
+
   const brakeData = {
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    labels: Array.from({ length: 100 }, (_, i) => i + 1),
     datasets: [
       {
         label: "Brake",
-        data: [2000, 1500, 3000, 6000, 4500, 3000, 1000, 4000, 5500, 6000],
+        data: brakeGraphData,
         backgroundColor: ["rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgb(255, 99, 132)"],
         borderWidth: 1,
@@ -157,13 +280,27 @@ const GraphSection = ({ accelerataion, brake }) => {
     ],
   };
 
+  const brakeConfig = {
+    type: "line",
+    data: brakeData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMin: 0,
+          suggestedMax: 10000,
+        },
+      },
+    },
+  };
+
   return (
-    <Card className="card mx-5 mb-5 mt-3">
+    <Card className="card mx-5 mb-2 mt-3">
       <CardBody>
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs="6" className="text-center">
             <h5 className="mb-4">Acceleration</h5>
-            <Line data={accelerataionData} className="line mb-3" />
+            <Line {...accelerationConfig} className="line mb-3" />
             <Row className="d-flex justify-content-center align-items-center">
               <Col xs="5" className="d-flex">
                 <Col className="me-3">
@@ -217,11 +354,21 @@ const GraphSection = ({ accelerataion, brake }) => {
                   </Dropdown>
                 </Col>
               </Col>
+              <Col xs="5" className="d-flex">
+                <Col className="me-3">
+                  <span className="title">Force</span>
+                </Col>
+                <Col xs="3" className="ms-3 d-flex">
+                  {data.accelerationForce
+                    ? data.accelerationForce + " N"
+                    : "N/A"}
+                </Col>
+              </Col>
             </Row>
           </Col>
           <Col xs="6" className=" d-flex flex-column">
             <h5 className="mb-4 text-center">Brake</h5>
-            <Line data={brakeData} className="line mb-3" />
+            <Line {...brakeConfig} className="line mb-3" />
             <Row className="d-flex justify-content-center align-items-center">
               <Col xs="5" className="d-flex">
                 <Col className="me-3">
@@ -230,7 +377,7 @@ const GraphSection = ({ accelerataion, brake }) => {
                     placeholder="Load Cell"
                     className="input"
                     value={loadCellforBrake}
-                    onChange={(e) => setLoadCellForBrake(e.target.value)}
+                    onChange={handleLoadCellForBrake}
                   />
                 </Col>
                 <Col xs="3" className="ms-3 d-flex">
@@ -271,8 +418,23 @@ const GraphSection = ({ accelerataion, brake }) => {
                       >
                         Stage 4
                       </DropdownItem>
+                      <DropdownItem divider className="dropDownDivider" />
+                      <DropdownItem
+                        className="dropMenuItem"
+                        onClick={handleLoadCellForBrake}
+                      >
+                        Stage 5
+                      </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
+                </Col>
+              </Col>
+              <Col xs="5" className="d-flex">
+                <Col className="me-3 text-center">
+                  <span className="title text-center">Force</span>
+                </Col>
+                <Col xs="3" className="ms-3 d-flex">
+                  {data.brakeForce ? data.brakeForce + "N" : "N/A"}
                 </Col>
               </Col>
             </Row>
